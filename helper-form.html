@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Заявка на Хелпера — CrystalCraft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0d0d0d; --surface: #111111; --border: rgba(130,80,255,0.12);
+    --accent: #a855f7; --accent2: #7c3aed; --text: #f0e8ff;
+    --text-muted: #6b6a8a; --text-dim: #3d3c55; --red: #ef4444; --input-bg: rgba(255,255,255,0.03);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+  .bg-grid { position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(168,85,247,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(168,85,247,0.02) 1px,transparent 1px);background-size:48px 48px; }
+  .bg-orb { position:fixed;border-radius:50%;filter:blur(100px);pointer-events:none;z-index:0; }
+  .bg-orb-1 { width:600px;height:400px;top:-150px;left:-150px;background:rgba(124,58,237,0.05); }
+  .bg-orb-2 { width:400px;height:400px;bottom:-100px;right:-100px;background:rgba(168,85,247,0.04); }
+  .wrapper { position:relative;z-index:1;max-width:640px;margin:0 auto;padding:48px 20px 80px; }
+  .header { text-align:center;margin-bottom:44px;animation:fadeDown 0.6s ease both; }
+  .header-badge { display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.25);color:var(--accent);padding:5px 14px;border-radius:20px;margin-bottom:16px; }
+  .header-title { font-family:'Rajdhani',sans-serif;font-size:38px;font-weight:700;color:#fff;letter-spacing:-0.5px;text-shadow:0 0 50px rgba(168,85,247,0.4);margin-bottom:10px;line-height:1.1; }
+  .header-title span { color:var(--accent); }
+  .header-sub { font-size:14px;color:var(--text-muted);line-height:1.6;max-width:440px;margin:0 auto; }
+  .req-card { background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px 24px;margin-bottom:28px;animation:fadeUp 0.5s ease 0.1s both; }
+  .req-title { font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;display:flex;align-items:center;gap:8px; }
+  .req-title::before { content:'';display:block;width:16px;height:2px;background:var(--accent);border-radius:2px; }
+  .req-list { list-style:none;display:flex;flex-direction:column;gap:8px; }
+  .req-list li { display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#b0a8cc;line-height:1.5; }
+  .req-list li .ri { width:18px;height:18px;border-radius:5px;flex-shrink:0;margin-top:1px;background:rgba(168,85,247,0.12);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--accent); }
+  .form-card { background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:32px 28px;animation:fadeUp 0.5s ease 0.2s both; }
+  .form-section-title { font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--text-dim);margin:28px 0 16px;display:flex;align-items:center;gap:10px; }
+  .form-section-title:first-child { margin-top:0; }
+  .form-section-title::after { content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent); }
+  .field-group { display:flex;flex-direction:column;gap:16px; }
+  .field-row { display:grid;grid-template-columns:1fr 1fr;gap:14px; }
+  .field { display:flex;flex-direction:column;gap:7px; }
+  .field label { font-size:12.5px;font-weight:600;color:#8880aa;display:flex;align-items:center;gap:5px; }
+  .field label .req-star { color:var(--accent);font-size:14px;line-height:1; }
+  .field input,.field textarea,.field select { background:var(--input-bg);border:1px solid rgba(130,80,255,0.18);border-radius:11px;color:var(--text);font-family:'Nunito',sans-serif;font-size:14px;padding:11px 14px;outline:none;transition:border-color .2s,background .2s,box-shadow .2s;width:100%;resize:none; }
+  .field input::placeholder,.field textarea::placeholder { color:var(--text-dim); }
+  .field input:focus,.field textarea:focus,.field select:focus { border-color:rgba(168,85,247,0.5);background:rgba(168,85,247,0.04);box-shadow:0 0 0 3px rgba(168,85,247,0.08); }
+  .field input.error,.field textarea.error,.field select.error { border-color:rgba(239,68,68,0.5);box-shadow:0 0 0 3px rgba(239,68,68,0.07); }
+  .field-error { font-size:11.5px;color:var(--red);display:none;align-items:center;gap:4px; }
+  .field-error.show { display:flex; }
+  .field select { appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b6a8a' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer; }
+  .field select option { background:#111; }
+  .field textarea { min-height:90px;line-height:1.6; }
+  .field-meta { display:flex;justify-content:space-between;align-items:center; }
+  .char-count { font-size:11px;color:var(--text-dim); }
+  .char-count.warn { color:#f59e0b; }
+  .submit-wrap { margin-top:28px; }
+  .submit-btn { width:100%;padding:14px 24px;background:linear-gradient(135deg,var(--accent2),var(--accent));border:none;border-radius:13px;color:white;font-family:'Rajdhani',sans-serif;font-size:17px;font-weight:700;letter-spacing:1px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 24px rgba(124,58,237,0.4);position:relative;overflow:hidden; }
+  .submit-btn:hover { transform:translateY(-2px);box-shadow:0 8px 32px rgba(124,58,237,0.55); }
+  .submit-btn:active { transform:translateY(0); }
+  .submit-btn:disabled { opacity:.5;cursor:not-allowed;transform:none; }
+  .submit-note { text-align:center;font-size:12px;color:var(--text-dim);margin-top:10px;display:flex;align-items:center;justify-content:center;gap:5px; }
+  .success-wrap { text-align:center;padding:56px 24px;display:none;animation:fadeUp 0.5s ease both; }
+  .success-wrap.show { display:block; }
+  .success-icon { width:72px;height:72px;border-radius:20px;margin:0 auto 20px;background:linear-gradient(135deg,#16a34a,#22c55e);display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 0 40px rgba(34,197,94,0.3); }
+  .success-title { font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;color:#fff;margin-bottom:10px; }
+  .success-sub { font-size:14px;color:var(--text-muted);line-height:1.6; }
+  .spinner { width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,0.3);border-top-color:white;animation:spin 0.7s linear infinite;display:none; }
+  .submit-btn.loading .spinner { display:block; }
+  .submit-btn.loading .btn-text { opacity:.7; }
+  @keyframes spin { to{transform:rotate(360deg)} }
+  @keyframes fadeDown { from{opacity:0;transform:translateY(-16px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+  @media(max-width:480px){.field-row{grid-template-columns:1fr}.header-title{font-size:30px}.form-card{padding:24px 18px}}
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-orb bg-orb-1"></div>
+<div class="bg-orb bg-orb-2"></div>
+
+<iframe name="hidden_iframe" style="display:none"></iframe>
+
+<form id="gform"
+  action="https://docs.google.com/forms/d/e/1FAIpQLSf2NVFMKKO4I-6uly16sNOjS1ckcTiYy01pjvDgrYdj3yTBGA/formResponse"
+  method="POST" target="hidden_iframe" style="display:none">
+  <input type="text" name="entry.1106525438" id="g_nickname">
+  <input type="text" name="entry.1799827026" id="g_age">
+  <input type="text" name="entry.1019319423" id="g_vk">
+  <input type="text" name="entry.86744824"   id="g_timezone">
+  <input type="text" name="entry.2052021724" id="g_online">
+  <input type="text" name="entry.629017051"  id="g_terms">
+  <input type="text" name="entry.2108047090" id="g_why">
+  <input type="text" name="entry.1840572459" id="g_exp">
+  <input type="text" name="entry.521356904"  id="g_story">
+  <input type="text" name="entry.1283395179" id="g_rules">
+</form>
+
+<div class="wrapper">
+
+  <div class="header">
+    <div class="header-badge"><i class="fas fa-shield-alt"></i> Гриферское выживание</div>
+    <h1 class="header-title">Стать <span>Хелпером</span></h1>
+    <p class="header-sub">Хочешь помогать проекту и наказывать нарушителей? Заполни заявку — мы рассмотрим её в течение нескольких дней.</p>
+  </div>
+
+  <div class="req-card">
+    <div class="req-title">Требования</div>
+    <ul class="req-list">
+      <li><div class="ri"><i class="fas fa-check"></i></div>Возраст: от 14 лет (в исключительных случаях — от 13)</li>
+      <li><div class="ri"><i class="fas fa-check"></i></div>Подавать заявку можно не чаще одного раза в месяц</li>
+      <li><div class="ri"><i class="fas fa-check"></i></div>Активная страница ВКонтакте — обязательна для вступления</li>
+      <li><div class="ri"><i class="fas fa-check"></i></div>Привязка к боту ВКонтакте обязательна</li>
+      <li><div class="ri"><i class="fas fa-check"></i></div>Постоянная активность на сервере</li>
+      <li><div class="ri"><i class="fas fa-check"></i></div>Windows установлен более 2 недель назад (чистая система — отказ)</li>
+      <li><div class="ri"><i class="fas fa-check"></i></div>Отсутствие банов за серьёзные нарушения</li>
+    </ul>
+  </div>
+
+  <div class="form-card" id="formCard">
+
+    <div class="form-section-title">Основная информация</div>
+    <div class="field-group">
+
+      <div class="field-row">
+        <div class="field">
+          <label>Никнейм <span class="req-star">*</span></label>
+          <input type="text" id="nickname" placeholder="Ваш ник на сервере" maxlength="32">
+          <span class="field-error" id="err-nickname"><i class="fas fa-circle-exclamation"></i> Введите никнейм</span>
+        </div>
+        <div class="field">
+          <label>Возраст <span class="req-star">*</span></label>
+          <input type="number" id="age" placeholder="Лет" min="1" max="99">
+          <span class="field-error" id="err-age"><i class="fas fa-circle-exclamation"></i> Укажите возраст</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Ссылка на ВКонтакте <span class="req-star">*</span></label>
+        <input type="url" id="vk" placeholder="https://vk.com/yourpage">
+        <span class="field-error" id="err-vk"><i class="fas fa-circle-exclamation"></i> Укажите ссылку на ВК</span>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Часовой пояс <span class="req-star">*</span></label>
+          <select id="timezone">
+            <option value="" disabled selected>Выбери...</option>
+            <option>UTC+2 (Калининград)</option>
+            <option>UTC+3 (Москва)</option>
+            <option>UTC+4 (Самара)</option>
+            <option>UTC+5 (Екатеринбург)</option>
+            <option>UTC+6 (Омск)</option>
+            <option>UTC+7 (Красноярск)</option>
+            <option>UTC+8 (Иркутск)</option>
+            <option>UTC+9 (Якутск)</option>
+            <option>UTC+10 (Владивосток)</option>
+            <option>UTC+11 (Магадан)</option>
+            <option>UTC+12 (Камчатка)</option>
+            <option>Другой</option>
+          </select>
+          <span class="field-error" id="err-timezone"><i class="fas fa-circle-exclamation"></i> Выберите пояс</span>
+        </div>
+        <div class="field">
+          <label>Средний онлайн на сервере <span class="req-star">*</span></label>
+          <input type="text" id="online" placeholder="Например: 3-4 часа в день">
+          <span class="field-error" id="err-online"><i class="fas fa-circle-exclamation"></i> Укажите онлайн</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="form-section-title">Знание правил</div>
+    <div class="field-group">
+
+      <div class="field">
+        <div class="field-meta">
+          <label>Определите термины: бан, кик, мут <span class="req-star">*</span></label>
+          <span class="char-count" id="cc-terms">0/400</span>
+        </div>
+        <textarea id="terms" placeholder="Своими словами объясни каждый термин..." maxlength="400" rows="3"></textarea>
+        <span class="field-error" id="err-terms"><i class="fas fa-circle-exclamation"></i> Напишите хотя бы 20 символов</span>
+      </div>
+
+      <div class="field">
+        <div class="field-meta">
+          <label>Ознакомились ли вы с правилами режима? <span class="req-star">*</span></label>
+          <span class="char-count" id="cc-rules">0/200</span>
+        </div>
+        <input type="text" id="rules_text" placeholder="Напишите свой ответ..." maxlength="200">
+        <span class="field-error" id="err-rules"><i class="fas fa-circle-exclamation"></i> Заполните это поле</span>
+      </div>
+
+    </div>
+
+    <div class="form-section-title">О себе</div>
+    <div class="field-group">
+
+      <div class="field">
+        <div class="field-meta">
+          <label>Почему хотите стать хелпером? <span class="req-star">*</span></label>
+          <span class="char-count" id="cc-why">0/600</span>
+        </div>
+        <textarea id="why" placeholder="Расскажи о мотивации и ожиданиях от должности..." maxlength="600" rows="4"></textarea>
+        <span class="field-error" id="err-why"><i class="fas fa-circle-exclamation"></i> Напишите хотя бы 30 символов</span>
+      </div>
+
+      <div class="field">
+        <div class="field-meta">
+          <label>Есть ли опыт модерации? <span class="req-star">*</span></label>
+          <span class="char-count" id="cc-exp">0/400</span>
+        </div>
+        <textarea id="exp" placeholder="Укажи проекты, должности, сроки. Или напиши «Нет»..." maxlength="400" rows="3"></textarea>
+        <span class="field-error" id="err-exp"><i class="fas fa-circle-exclamation"></i> Заполните это поле</span>
+      </div>
+
+      <div class="field">
+        <div class="field-meta">
+          <label>Мини-рассказ «Как я вижу себя в роли хелпера» <span class="req-star">*</span></label>
+          <span class="char-count" id="cc-story">0/600</span>
+        </div>
+        <textarea id="story" placeholder="Не менее 25 слов. Опиши свои действия, подход к игрокам..." maxlength="600" rows="4"></textarea>
+        <span class="field-error" id="err-story"><i class="fas fa-circle-exclamation"></i> Напишите хотя бы 25 слов</span>
+      </div>
+
+    </div>
+
+    <div class="submit-wrap">
+      <button class="submit-btn" id="submitBtn" onclick="submitForm()">
+        <div class="spinner"></div>
+        <span class="btn-text"><i class="fas fa-paper-plane"></i>&nbsp; Отправить заявку</span>
+      </button>
+      <p class="submit-note"><i class="fas fa-lock" style="color:var(--accent);font-size:10px"></i> Данные сохраняются напрямую в Google Forms администрации</p>
+    </div>
+
+  </div>
+
+  <div class="success-wrap" id="successWrap">
+    <div class="success-icon">✅</div>
+    <div class="success-title">Заявка отправлена!</div>
+    <p class="success-sub">Мы получили твою заявку и рассмотрим её в ближайшее время.<br>Ответ придёт в личные сообщения ВКонтакте.</p>
+  </div>
+
+</div>
+
+<script>
+  function bindCounter(id, ccId) {
+    var ta = document.getElementById(id), cc = document.getElementById(ccId);
+    if (!ta||!cc) return;
+    ta.addEventListener('input', function() {
+      var l=ta.value.length, m=parseInt(ta.getAttribute('maxlength'));
+      cc.textContent=l+'/'+m; cc.className='char-count'+(l>m*.85?' warn':'');
+    });
+  }
+  bindCounter('terms','cc-terms'); bindCounter('why','cc-why');
+  bindCounter('exp','cc-exp'); bindCounter('story','cc-story');
+  bindCounter('rules_text','cc-rules');
+
+  function clearErrors() {
+    document.querySelectorAll('.field-error').forEach(e=>e.classList.remove('show'));
+    document.querySelectorAll('.error').forEach(e=>e.classList.remove('error'));
+  }
+  function showErr(fId,eId) {
+    var el=document.getElementById(fId); if(el) el.classList.add('error');
+    var er=document.getElementById(eId); if(er) er.classList.add('show');
+  }
+  function wordCount(s) { return s.trim().split(/\s+/).filter(w=>w.length>0).length; }
+
+  function validate() {
+    clearErrors(); var ok=true;
+    if (!document.getElementById('nickname').value.trim())         { showErr('nickname','err-nickname'); ok=false; }
+    var a=document.getElementById('age').value;
+    if (!a||a<1||a>99)                                             { showErr('age','err-age'); ok=false; }
+    var vk=document.getElementById('vk').value.trim();
+    if (!vk||!vk.includes('vk.com'))                               { showErr('vk','err-vk'); ok=false; }
+    if (!document.getElementById('timezone').value)                 { showErr('timezone','err-timezone'); ok=false; }
+    if (!document.getElementById('online').value.trim())            { showErr('online','err-online'); ok=false; }
+    if (document.getElementById('terms').value.trim().length<20)   { showErr('terms','err-terms'); ok=false; }
+    if (!document.getElementById('rules_text').value.trim())        { document.getElementById('rules_text').classList.add('error'); document.getElementById('err-rules').classList.add('show'); ok=false; }
+    if (document.getElementById('why').value.trim().length<30)     { showErr('why','err-why'); ok=false; }
+    if (!document.getElementById('exp').value.trim())               { showErr('exp','err-exp'); ok=false; }
+    if (wordCount(document.getElementById('story').value)<25)      { showErr('story','err-story'); ok=false; }
+    return ok;
+  }
+
+  function submitForm() {
+    if (!validate()) return;
+    var btn=document.getElementById('submitBtn');
+    btn.classList.add('loading'); btn.disabled=true;
+
+    document.getElementById('g_nickname').value = document.getElementById('nickname').value.trim();
+    document.getElementById('g_age').value      = document.getElementById('age').value;
+    document.getElementById('g_vk').value       = document.getElementById('vk').value.trim();
+    document.getElementById('g_timezone').value = document.getElementById('timezone').value;
+    document.getElementById('g_online').value   = document.getElementById('online').value.trim();
+    document.getElementById('g_terms').value    = document.getElementById('terms').value.trim();
+    document.getElementById('g_why').value      = document.getElementById('why').value.trim();
+    document.getElementById('g_exp').value      = document.getElementById('exp').value.trim();
+    document.getElementById('g_story').value    = document.getElementById('story').value.trim();
+    document.getElementById('g_rules').value    = document.getElementById('rules_text').value.trim();
+
+    document.getElementById('gform').submit();
+
+    setTimeout(function(){
+      document.getElementById('formCard').style.display='none';
+      document.getElementById('successWrap').classList.add('show');
+    }, 1200);
+  }
+</script>
+</body>
+</html>

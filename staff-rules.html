@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Правила Персонала — CrystalCraft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Nunito:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0d0d0d; --surface: #111; --surface2: #151515;
+  --border: rgba(130,80,255,0.12); --border2: rgba(130,80,255,0.2);
+  --accent: #a855f7; --accent2: #7c3aed; --accent3: #c084fc;
+  --text: #f0e8ff; --text-muted: #7a7898; --text-dim: #3d3c55;
+  --warn: #f59e0b; --red: #ef4444; --green: #22c55e;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+
+.bg-grid { position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(168,85,247,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(168,85,247,0.02) 1px,transparent 1px);background-size:56px 56px; }
+.bg-orb1 { position:fixed;width:700px;height:500px;top:-200px;left:-200px;background:radial-gradient(ellipse,rgba(124,58,237,0.05),transparent 70%);pointer-events:none;z-index:0; }
+.bg-orb2 { position:fixed;width:500px;height:500px;bottom:-150px;right:-100px;background:radial-gradient(ellipse,rgba(168,85,247,0.04),transparent 70%);pointer-events:none;z-index:0; }
+
+.wrap { position:relative;z-index:1;max-width:720px;margin:0 auto;padding:52px 24px 100px; }
+
+/* HERO */
+.hero { text-align:center;margin-bottom:44px;animation:fadeDown .6s ease both; }
+.hero-badge { display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.25);color:var(--accent);padding:5px 15px;border-radius:20px;margin-bottom:18px; }
+.hero-title { font-family:'Rajdhani',sans-serif;font-size:42px;font-weight:700;color:#fff;letter-spacing:-1px;line-height:1.05;margin-bottom:12px;text-shadow:0 0 60px rgba(168,85,247,0.35); }
+.hero-title span { color:var(--accent); }
+.hero-sub { font-size:14px;color:var(--text-muted);line-height:1.7;max-width:500px;margin:0 auto; }
+
+/* INTRO CARD */
+.intro-card { background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px 24px;margin-bottom:28px;animation:fadeUp .5s ease .1s both;display:flex;gap:14px;align-items:flex-start; }
+.intro-icon { width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,var(--accent2),var(--accent));display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;box-shadow:0 0 20px rgba(168,85,247,0.3); }
+.intro-text { font-size:13.5px;color:#b0a8cc;line-height:1.7; }
+
+/* RULES LIST */
+.rules-list { display:flex;flex-direction:column;gap:8px;animation:fadeUp .5s ease .15s both; }
+
+.rule-item { background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start;transition:border-color .2s,background .2s; }
+.rule-item:hover { background:var(--surface2);border-color:var(--border2); }
+
+.rule-icon { width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;margin-top:1px; }
+.rule-icon.purple { background:rgba(168,85,247,0.12);color:var(--accent); }
+.rule-icon.warn { background:rgba(245,158,11,0.1);color:var(--warn); }
+.rule-icon.red { background:rgba(239,68,68,0.1);color:var(--red); }
+.rule-icon.green { background:rgba(34,197,94,0.1);color:var(--green); }
+
+.rule-body { flex:1; }
+.rule-text { font-size:13.5px;color:#c8c0e0;line-height:1.65; }
+
+.penalty { display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;border-radius:6px;padding:2px 9px;margin-top:8px;white-space:nowrap; }
+.p-warn { background:rgba(245,158,11,0.1);color:#fcd34d;border:1px solid rgba(245,158,11,0.25); }
+.p-warn2 { background:rgba(245,158,11,0.15);color:#fbbf24;border:1px solid rgba(245,158,11,0.35); }
+.p-fire { background:rgba(239,68,68,0.1);color:#fca5a5;border:1px solid rgba(239,68,68,0.25); }
+.p-fire-cs { background:rgba(239,68,68,0.15);color:#f87171;border:1px solid rgba(239,68,68,0.35); }
+
+.penalty-wrap { display:flex;flex-wrap:wrap;gap:5px;margin-top:8px; }
+
+/* SECTION LABEL */
+.section-label { font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--text-dim);margin:28px 0 14px;display:flex;align-items:center;gap:10px; }
+.section-label::before { content:'';display:block;width:16px;height:2px;background:var(--accent);border-radius:2px; }
+
+@keyframes fadeDown { from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)} }
+@media(max-width:560px){ .hero-title{font-size:30px} .wrap{padding:36px 16px 80px} }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-orb1"></div>
+<div class="bg-orb2"></div>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="hero-badge"><i class="fas fa-shield-alt"></i> CrystalCraft</div>
+    <h1 class="hero-title">Правила <span>Персонала</span></h1>
+    <p class="hero-sub">Обязательные требования для всех членов состава проекта. Вступая в состав, вы принимаете эти правила.</p>
+  </div>
+
+  <div class="intro-card">
+    <div class="intro-icon">📋</div>
+    <div class="intro-text">Если вы решили вступить в состав <b>CrystalCraft</b>, вы обязаны соблюдать культуру делового общения, быть стрессоустойчивыми, вежливыми и доброжелательными. Весь состав является лицом проекта и должен соответствовать этим требованиям. Необходимо отыгрывать <b>1 час 30 минут</b> и поддерживать дневную норму мутов — <b>20 штук</b>.</div>
+  </div>
+
+  <div class="section-label">Обязанности и запреты</div>
+  <div class="rules-list">
+
+    <div class="rule-item">
+      <div class="rule-icon purple"><i class="fas fa-lock"></i></div>
+      <div class="rule-body">
+        <div class="rule-text">Каждый член состава несёт ответственность за безопасность своего аккаунта. Обязательно привязать аккаунт к ВКонтакте и включить двухфакторную аутентификацию. Взлом не является оправданием.</div>
+        <div class="penalty-wrap"><span class="penalty p-fire"><i class="fas fa-user-slash"></i> Снятие с должности</span></div>
+      </div>
+    </div>
+
+    <div class="rule-item">
+      <div class="rule-icon red"><i class="fab fa-vk"></i></div>
+      <div class="rule-body">
+        <div class="rule-text">Запрещается добавлять высшую администрацию состава в чёрный список ВКонтакте.</div>
+        <div class="penalty-wrap"><span class="penalty p-fire-cs"><i class="fas fa-user-slash"></i> Снятие с должности + ЧС</span></div>
+      </div>
+    </div>
+
+    <div class="rule-item">
+      <div class="rule-icon purple"><i class="fas fa-comments"></i></div>
+      <div class="rule-body">
+        <div class="rule-text">Персонал обязан придерживаться культурных правил, соблюдать субординацию, быть вежливым по отношению к игрокам и остальному персоналу.</div>
+        <div class="penalty-wrap"><span class="penalty p-warn2"><i class="fas fa-exclamation-triangle"></i> 2 варна</span></div>
+      </div>
+    </div>
+
+    <div class="rule-item">
+      <div class="rule-icon warn"><i class="fas fa-id-badge"></i></div>
+      <div class="rule-body">
+        <div class="rule-text">Персоналу запрещено регистрировать никнеймы и устанавливать префиксы, прямо или косвенно нарушающие правила.</div>
+        <div class="penalty-wrap"><span class="penalty p-warn2"><i class="fas fa-exclamation-triangle"></i> 2 варна</span></div>
+      </div>
+    </div>
+
+    <div class="rule-item">
+      <div class="rule-icon red"><i class="fas fa-gavel"></i></div>
+      <div class="rule-body">
+        <div class="rule-text">Персоналу запрещено лжесвидетельствовать против других участников состава, а также шантажировать доказательствами.</div>
+        <div class="penalty-wrap"><span class="penalty p-warn2"><i class="fas fa-exclamation-triangle"></i> 2 варна</span></div>
+      </div>
+    </div>
+
+    <div class="rule-item">
+      <div class="rule-icon warn"><i class="fas fa-comment-slash"></i></div>
+      <div class="rule-body">
+        <div class="rule-text">Персоналу запрещено флудить — отправлять более 3-х похожих или одинаковых сообщений подряд в режиме <b>/sw</b>.</div>
+        <div class="penalty-wrap"><span class="penalty p-warn"><i class="fas fa-exclamation-circle"></i> Варн</span></div>
+      </div>
+    </div>
+
+    <div class="rule-item">
+      <div class="rule-icon red"><i class="fas fa-user-times"></i></div>
+      <div class="rule-body">
+        <div class="rule-text">Персоналу запрещено унижать игроков, дискриминировать по различным признакам, угрожать, насмехаться.</div>
+        <div class="penalty-wrap"><span class="penalty p-warn2"><i class="fas fa-exclamation-triangle"></i> 2 варна</span></div>
+      </div>
+    </div>
+
+    <div class="rule-item">
+      <div class="rule-icon red"><i class="fas fa-info-circle"></i></div>
+      <div class="rule-body">
+        <div class="rule-text">Персоналу запрещено дезинформировать игроков, а также распространять конфиденциальную информацию состава.</div>
+        <div class="penalty-wrap"><span class="penalty p-fire"><i class="fas fa-user-slash"></i> Снятие с должности</span></div>
+      </div>
+    </div>
+
+    <div class="rule-item">
+      <div class="rule-icon warn"><i class="fas fa-hand-holding"></i></div>
+      <div class="rule-body">
+        <div class="rule-text">Персоналу запрещено выпрашивать ресурсы у игроков (только в режиме <b>/sw</b>).</div>
+        <div class="penalty-wrap"><span class="penalty p-warn"><i class="fas fa-exclamation-circle"></i> Варн</span></div>
+      </div>
+    </div>
+
+    <div class="rule-item">
+      <div class="rule-icon red"><i class="fas fa-server"></i></div>
+      <div class="rule-body">
+        <div class="rule-text">Запрещено состоять в составе других игровых проектов одновременно.</div>
+        <div class="penalty-wrap"><span class="penalty p-fire"><i class="fas fa-user-slash"></i> Снятие с должности</span></div>
+      </div>
+    </div>
+
+    <div class="rule-item">
+      <div class="rule-icon red"><i class="fas fa-key"></i></div>
+      <div class="rule-body">
+        <div class="rule-text">Запрещено передавать данные своего аккаунта кому-либо.</div>
+        <div class="penalty-wrap"><span class="penalty p-fire"><i class="fas fa-user-slash"></i> Снятие с должности</span></div>
+      </div>
+    </div>
+
+    <div class="rule-item">
+      <div class="rule-icon warn"><i class="fas fa-balance-scale-right"></i></div>
+      <div class="rule-body">
+        <div class="rule-text">Запрещено злоупотреблять своими правами в пользу себя или друзей, выдавать шуточные и необоснованные наказания.</div>
+        <div class="penalty-wrap"><span class="penalty p-warn2"><i class="fas fa-exclamation-triangle"></i> 2 варна</span></div>
+      </div>
+    </div>
+
+    <div class="rule-item">
+      <div class="rule-icon warn"><i class="fas fa-ban"></i></div>
+      <div class="rule-body">
+        <div class="rule-text">Запрещено наказывать модератора своего сервера и менять/снимать наказания другому игроку, которого наказывал не ты.</div>
+        <div class="penalty-wrap"><span class="penalty p-warn2"><i class="fas fa-exclamation-triangle"></i> 2 варна</span></div>
+      </div>
+    </div>
+
+    <div class="rule-item">
+      <div class="rule-icon warn"><i class="fas fa-users"></i></div>
+      <div class="rule-body">
+        <div class="rule-text">Персоналу запрещено участвовать в конфликтах между игроками, провоцировать их или насмехаться над ними, даже если это друг. Насмешки с друзьями — только в личные сообщения.</div>
+        <div class="penalty-wrap"><span class="penalty p-warn"><i class="fas fa-exclamation-circle"></i> Варн</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ЛЕГЕНДА -->
+  <div class="section-label" style="margin-top:36px">Система наказаний</div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;animation:fadeUp .5s ease .2s both">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 16px;font-size:12.5px;color:#b0a8cc;display:flex;align-items:center;gap:8px"><span class="penalty p-warn" style="margin:0"><i class="fas fa-exclamation-circle"></i> Варн</span> — предупреждение</div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 16px;font-size:12.5px;color:#b0a8cc;display:flex;align-items:center;gap:8px"><span class="penalty p-warn2" style="margin:0"><i class="fas fa-exclamation-triangle"></i> 2 варна</span> — двойное предупреждение</div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 16px;font-size:12.5px;color:#b0a8cc;display:flex;align-items:center;gap:8px"><span class="penalty p-fire" style="margin:0"><i class="fas fa-user-slash"></i> Снятие</span> — увольнение из состава</div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 16px;font-size:12.5px;color:#b0a8cc;display:flex;align-items:center;gap:8px"><span class="penalty p-fire-cs" style="margin:0"><i class="fas fa-user-slash"></i> Снятие + ЧС</span> — увольнение и чёрный список</div>
+  </div>
+
+</div>
+</body>
+</html>

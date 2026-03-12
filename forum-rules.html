@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Правила Форума — CrystalCraft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Nunito:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0d0d0d; --surface: #111; --surface2: #151515;
+  --border: rgba(130,80,255,0.12); --border2: rgba(130,80,255,0.2);
+  --accent: #a855f7; --accent2: #7c3aed; --accent3: #c084fc;
+  --text: #f0e8ff; --text-muted: #7a7898; --text-dim: #3d3c55;
+  --red: #ef4444; --yellow: #f59e0b; --green: #22c55e; --blue: #3b82f6;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+
+.bg-grid { position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(168,85,247,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(168,85,247,0.02) 1px,transparent 1px);background-size:56px 56px; }
+.bg-orb1 { position:fixed;width:700px;height:500px;top:-200px;left:-200px;background:radial-gradient(ellipse,rgba(124,58,237,0.05),transparent 70%);pointer-events:none;z-index:0; }
+.bg-orb2 { position:fixed;width:500px;height:500px;bottom:-150px;right:-100px;background:radial-gradient(ellipse,rgba(168,85,247,0.04),transparent 70%);pointer-events:none;z-index:0; }
+
+.wrap { position:relative;z-index:1;max-width:740px;margin:0 auto;padding:52px 24px 100px; }
+
+.hero { text-align:center;margin-bottom:44px;animation:fadeDown .6s ease both; }
+.hero-badge { display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.25);color:var(--accent);padding:5px 15px;border-radius:20px;margin-bottom:18px; }
+.hero-title { font-family:'Rajdhani',sans-serif;font-size:42px;font-weight:700;color:#fff;letter-spacing:-1px;line-height:1.05;margin-bottom:12px;text-shadow:0 0 60px rgba(168,85,247,0.35); }
+.hero-title span { color:var(--accent); }
+.hero-sub { font-size:14px;color:var(--text-muted);line-height:1.7;max-width:500px;margin:0 auto; }
+
+/* TOC */
+.toc { background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px 22px;margin-bottom:32px;animation:fadeUp .5s ease .1s both; }
+.toc-title { font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--text-dim);margin-bottom:12px;display:flex;align-items:center;gap:8px; }
+.toc-title::before { content:'';display:block;width:14px;height:2px;background:var(--accent);border-radius:2px; }
+.toc-links { display:flex;flex-wrap:wrap;gap:7px; }
+.toc-links a { font-size:12.5px;color:var(--text-muted);text-decoration:none;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:5px 12px;transition:color .2s,border-color .2s,background .2s; }
+.toc-links a:hover { color:var(--accent);border-color:rgba(168,85,247,0.35);background:rgba(168,85,247,0.06); }
+
+/* SECTION */
+.section { margin-bottom:10px;animation:fadeUp .5s ease both; }
+.section-header { display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:14px 14px 0 0;padding:15px 20px;cursor:pointer;user-select:none;transition:border-color .2s,background .2s; }
+.section-header:hover { background:var(--surface2);border-color:var(--border2); }
+.section-header.open { border-color:rgba(168,85,247,0.3); }
+.section-num { font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--accent);background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.2);border-radius:7px;padding:3px 9px;flex-shrink:0; }
+.section-name { font-family:'Rajdhani',sans-serif;font-size:17px;font-weight:700;color:#e8e0ff;flex:1; }
+.section-icon { font-size:15px;color:var(--text-dim);flex-shrink:0; }
+.section-chevron { font-size:12px;color:var(--text-dim);transition:transform .25s;flex-shrink:0; }
+.section-header.open .section-chevron { transform:rotate(180deg); }
+
+.section-body { background:var(--surface);border:1px solid rgba(168,85,247,0.3);border-top:none;border-radius:0 0 14px 14px;overflow:hidden;max-height:0;transition:max-height .35s ease; }
+.section-body.open { max-height:9999px; }
+.section-inner { padding:6px 8px 14px; }
+
+.rule { display:flex;gap:0;border-radius:10px;margin:3px 0;overflow:hidden;transition:background .2s; }
+.rule:hover { background:rgba(168,85,247,0.04); }
+.rule-num { font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:var(--accent3);min-width:54px;padding:10px 8px 10px 14px;flex-shrink:0;opacity:.7; }
+.rule-text { font-size:13.5px;color:#c8c0e0;line-height:1.65;padding:9px 14px 9px 0;flex:1; }
+.rule-text b { color:var(--text);font-weight:600; }
+
+.penalty { display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;border-radius:6px;padding:2px 8px;margin:2px 2px 0 0;vertical-align:middle;white-space:nowrap; }
+.p-ban { background:rgba(239,68,68,0.12);color:#fca5a5;border:1px solid rgba(239,68,68,0.25); }
+.p-perm { background:rgba(239,68,68,0.2);color:#f87171;border:1px solid rgba(239,68,68,0.4); }
+.p-decline { background:rgba(245,158,11,0.12);color:#fcd34d;border:1px solid rgba(245,158,11,0.25); }
+
+@keyframes fadeDown { from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)} }
+@media(max-width:560px){ .hero-title{font-size:30px} .wrap{padding:36px 16px 80px} }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-orb1"></div>
+<div class="bg-orb2"></div>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="hero-badge"><i class="fas fa-scroll"></i> CrystalCraft</div>
+    <h1 class="hero-title">Правила <span>Форума</span></h1>
+    <p class="hero-sub">Отправляя любую форму, вы автоматически подтверждаете согласие с данными правилами. Незнание правил не освобождает от ответственности.</p>
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">Содержание</div>
+    <div class="toc-links">
+      <a href="#s1" onclick="goTo('s1');return false;">1. Общие положения</a>
+      <a href="#s2" onclick="goTo('s2');return false;">2. Пользовательские данные</a>
+      <a href="#s3" onclick="goTo('s3');return false;">3. Отправка заявок</a>
+      <a href="#s4" onclick="goTo('s4');return false;">4. Типы заявок</a>
+      <a href="#s5" onclick="goTo('s5');return false;">5. Ответы на заявки</a>
+      <a href="#s6" onclick="goTo('s6');return false;">6. Контент</a>
+      <a href="#s7" onclick="goTo('s7');return false;">7. Ответственность</a>
+    </div>
+  </div>
+
+  <!-- 1 -->
+  <div class="section" id="s1" style="animation-delay:.05s">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-num">01</span>
+      <span class="section-name">Общие положения</span>
+      <i class="fas fa-globe section-icon"></i>
+      <i class="fas fa-chevron-down section-chevron"></i>
+    </div>
+    <div class="section-body">
+      <div class="section-inner">
+        <div class="rule"><span class="rule-num">1.1</span><span class="rule-text">Правила обязательны для всех пользователей, использующих сайт и отправляющих заявки.</span></div>
+        <div class="rule"><span class="rule-num">1.2</span><span class="rule-text">Отправляя любую форму (жалоба, апелляция, предложение и т.д.), вы автоматически подтверждаете согласие с правилами.</span></div>
+        <div class="rule"><span class="rule-num">1.3</span><span class="rule-text">Незнание правил не освобождает от ответственности.</span></div>
+        <div class="rule"><span class="rule-num">1.4</span><span class="rule-text">Администрация оставляет за собой право изменять правила без предварительного уведомления.</span></div>
+        <div class="rule"><span class="rule-num">1.5</span><span class="rule-text">Главная администрация может принимать решения вне рамок правил, если того требует ситуация.</span></div>
+        <div class="rule"><span class="rule-num">1.6</span><span class="rule-text">Попытка обмана администрации (фальшивые данные, ложные жалобы и т.д.). <span class="penalty p-decline"><i class="fas fa-times"></i> Отклонение заявки</span></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="section" id="s2" style="animation-delay:.08s">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-num">02</span>
+      <span class="section-name">Пользовательские данные</span>
+      <i class="fas fa-user section-icon"></i>
+      <i class="fas fa-chevron-down section-chevron"></i>
+    </div>
+    <div class="section-body">
+      <div class="section-inner">
+        <div class="rule"><span class="rule-num">2.1</span><span class="rule-text">Рекомендуется указывать свой реальный игровой никнейм.</span></div>
+        <div class="rule"><span class="rule-num">2.2</span><span class="rule-text">Запрещено использовать никнеймы, содержащие оскорбительные выражения, имитацию администрации, нецензурные, провокационные или аморальные выражения.</span></div>
+        <div class="rule"><span class="rule-num">2.3</span><span class="rule-text">Администрация может отклонять заявку или заблокировать игрока за недопустимый никнейм.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="section" id="s3" style="animation-delay:.11s">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-num">03</span>
+      <span class="section-name">Отправка заявок</span>
+      <i class="fas fa-paper-plane section-icon"></i>
+      <i class="fas fa-chevron-down section-chevron"></i>
+    </div>
+    <div class="section-body">
+      <div class="section-inner">
+        <div class="rule"><span class="rule-num">3.1</span><span class="rule-text">Сайт используется для подачи заявок, а не для обсуждений.</span></div>
+        <div class="rule"><span class="rule-num">3.2.1</span><span class="rule-text">Оскорбления, токсичность. <span class="penalty p-decline"><i class="fas fa-times"></i> Отклонение заявки</span></span></div>
+        <div class="rule"><span class="rule-num">3.2.2</span><span class="rule-text">Провокации, клевета, массовые конфликты. <span class="penalty p-decline"><i class="fas fa-times"></i> Отклонение заявки</span></span></div>
+        <div class="rule"><span class="rule-num">3.2.3</span><span class="rule-text">Реклама сторонних проектов. <span class="penalty p-decline"><i class="fas fa-times"></i> Отклонение заявки</span></span></div>
+        <div class="rule"><span class="rule-num">3.2.4</span><span class="rule-text">Дискриминация, нацизм, пропаганда наркотиков. <span class="penalty p-decline"><i class="fas fa-times"></i> Отклонение заявки</span></span></div>
+        <div class="rule"><span class="rule-num">3.2.5</span><span class="rule-text">Контент 18+, шок-контент, скримеры. <span class="penalty p-decline"><i class="fas fa-times"></i> Отклонение заявки</span></span></div>
+        <div class="rule"><span class="rule-num">3.2.6</span><span class="rule-text">Флуд, спам, пустые заявки. <span class="penalty p-decline"><i class="fas fa-times"></i> Отклонение заявки</span></span></div>
+        <div class="rule"><span class="rule-num">3.3</span><span class="rule-text">Запрещено отправлять одну и ту же заявку более одного раза.</span></div>
+        <div class="rule"><span class="rule-num">3.4</span><span class="rule-text">За подачу ложной информации. <span class="penalty p-decline"><i class="fas fa-times"></i> Отклонение заявки</span></span></div>
+        <div class="rule"><span class="rule-num">3.5</span><span class="rule-text">Администрация вправе отклонить заявку без объяснения причины, если она нарушает правила или содержит неполные/некорректные данные.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="section" id="s4" style="animation-delay:.14s">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-num">04</span>
+      <span class="section-name">Типы заявок</span>
+      <i class="fas fa-list section-icon"></i>
+      <i class="fas fa-chevron-down section-chevron"></i>
+    </div>
+    <div class="section-body">
+      <div class="section-inner">
+        <div class="rule"><span class="rule-num">4.1</span><span class="rule-text">Пользователь обязан отправлять заявку только в соответствующую категорию (жалоба, апелляция, предложение и т.д.).</span></div>
+        <div class="rule"><span class="rule-num">4.2</span><span class="rule-text">Заявки, отправленные не по категории, могут быть автоматически отклонены.</span></div>
+        <div class="rule"><span class="rule-num">4.3</span><span class="rule-text">При подаче заявки необходимо использовать форму полностью, не изменять шаблон и не пропускать обязательные поля, заполнять всё корректно и разборчиво.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="section" id="s5" style="animation-delay:.17s">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-num">05</span>
+      <span class="section-name">Ответы на заявки</span>
+      <i class="fas fa-reply section-icon"></i>
+      <i class="fas fa-chevron-down section-chevron"></i>
+    </div>
+    <div class="section-body">
+      <div class="section-inner">
+        <div class="rule"><span class="rule-num">5.1</span><span class="rule-text">Администрация рассматривает заявки по мере возможности.</span></div>
+        <div class="rule"><span class="rule-num">5.2</span><span class="rule-text">Ответ может быть предоставлен как на сайте, так и в игре/дискорде/почте — зависит от типа заявки.</span></div>
+        <div class="rule"><span class="rule-num">5.3</span><span class="rule-text">Пользователь обязан соблюдать вежливость при общении с администрацией.</span></div>
+        <div class="rule"><span class="rule-num">5.5</span><span class="rule-text">Запрещено выдавать себя за администратора и отправлять ответы в стиле «одобрено», «отказано» и т.д. <span class="penalty p-decline"><i class="fas fa-times"></i> Отклонение заявки</span></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="section" id="s6" style="animation-delay:.2s">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-num">06</span>
+      <span class="section-name">Контент на сайте</span>
+      <i class="fas fa-file-alt section-icon"></i>
+      <i class="fas fa-chevron-down section-chevron"></i>
+    </div>
+    <div class="section-body">
+      <div class="section-inner">
+        <div class="rule"><span class="rule-num">6.1</span><span class="rule-text">Запрещено загружать или прикладывать материалы, содержащие: порнографию, жестокость, насилие, дискриминацию, шок-контент, призывы к нарушению правил сервера, любой опасный или деструктивный контент.</span></div>
+        <div class="rule"><span class="rule-num">6.2</span><span class="rule-text">Администрация вправе удалить запрещённый контент и заблокировать нарушителя.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7 -->
+  <div class="section" id="s7" style="animation-delay:.23s">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-num">07</span>
+      <span class="section-name">Ответственность</span>
+      <i class="fas fa-shield-alt section-icon"></i>
+      <i class="fas fa-chevron-down section-chevron"></i>
+    </div>
+    <div class="section-body">
+      <div class="section-inner">
+        <div class="rule"><span class="rule-num">7.3</span><span class="rule-text">Любая форма злоупотребления заявочной системой (спам, фейковые жалобы, троллинг). <span class="penalty p-decline"><i class="fas fa-times"></i> Отклонение заявки</span></span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggle(header) {
+  header.classList.toggle('open');
+  var body = header.nextElementSibling;
+  body.classList.toggle('open');
+}
+function goTo(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  var header = el.querySelector('.section-header');
+  var body = el.querySelector('.section-body');
+  if (header && !header.classList.contains('open')) {
+    header.classList.add('open');
+    body.classList.add('open');
+  }
+  setTimeout(function(){ el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
+}
+</script>
+</body>
+</html>

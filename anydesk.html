@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Проверка через AnyDesk — CrystalCraft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0d0d0d; --surface: #111; --surface2: #151515;
+  --border: rgba(130,80,255,0.12); --border2: rgba(130,80,255,0.25);
+  --accent: #a855f7; --accent2: #7c3aed;
+  --text: #f0e8ff; --text-muted: #7a7898; --text-dim: #3d3c55;
+  --red: #ef4444; --yellow: #f59e0b; --green: #22c55e;
+}
+html { scroll-behavior: smooth; }
+*::-webkit-scrollbar{width:6px} *::-webkit-scrollbar-track{background:rgba(0,0,0,0.2)} *::-webkit-scrollbar-thumb{background:rgba(168,85,247,0.4);border-radius:10px}
+body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+
+.bg-grid { position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(168,85,247,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(168,85,247,0.02) 1px,transparent 1px);background-size:56px 56px; }
+.bg-orb1 { position:fixed;width:600px;height:500px;top:-150px;left:-150px;background:radial-gradient(ellipse,rgba(124,58,237,0.06),transparent 70%);pointer-events:none;z-index:0; }
+.bg-orb2 { position:fixed;width:500px;height:500px;bottom:-100px;right:-100px;background:radial-gradient(ellipse,rgba(168,85,247,0.04),transparent 70%);pointer-events:none;z-index:0; }
+
+.wrap { position:relative;z-index:1;max-width:720px;margin:0 auto;padding:52px 24px 100px; }
+
+/* HERO */
+.hero { text-align:center;margin-bottom:36px;animation:fadeDown .6s ease both; }
+.hero-badge { display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.25);color:var(--accent);padding:5px 15px;border-radius:20px;margin-bottom:18px; }
+.hero-title { font-family:'Rajdhani',sans-serif;font-size:42px;font-weight:700;color:#fff;letter-spacing:-1px;line-height:1.05;margin-bottom:12px;text-shadow:0 0 60px rgba(168,85,247,0.3); }
+.hero-title span { color:var(--accent); }
+.hero-sub { font-size:14px;color:var(--text-muted);line-height:1.7;max-width:500px;margin:0 auto; }
+
+/* ALERT */
+.alert { display:flex;gap:14px;align-items:flex-start;background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.3);border-radius:14px;padding:16px 20px;margin-bottom:28px;animation:fadeUp .5s ease .05s both; }
+.alert-icon { width:38px;height:38px;border-radius:10px;background:rgba(239,68,68,0.15);color:#fca5a5;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0; }
+.alert-text { font-size:13.5px;color:#fca5a5;line-height:1.7; }
+.alert-text b { color:#fcd;font-weight:700; }
+
+/* SECTION LABEL */
+.section-label { font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--text-dim);margin:28px 0 12px;display:flex;align-items:center;gap:10px; }
+.section-label::before { content:'';display:block;width:16px;height:2px;background:var(--accent);border-radius:2px; }
+
+/* STEPS */
+.steps { display:flex;flex-direction:column;gap:8px; }
+.step { display:flex;gap:14px;align-items:flex-start;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 18px;transition:border-color .2s,background .2s;animation:fadeUp .5s ease both; }
+.step:hover { background:var(--surface2);border-color:var(--border2); }
+.step-num { width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--accent2),var(--accent));color:#fff;font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 16px rgba(168,85,247,0.3); }
+.step-body { flex:1; }
+.step-text { font-size:13.5px;color:#c8c0e0;line-height:1.7; }
+.step-text a { color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(168,85,247,0.3);transition:border-color .2s; }
+.step-text a:hover { border-color:var(--accent); }
+.step-text b { color:var(--text);font-weight:700; }
+
+/* IMAGE BLOCK */
+.step-img { margin-top:12px;border-radius:10px;overflow:hidden;border:1px solid var(--border); }
+.permissions-grid { display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:14px;background:rgba(255,255,255,0.02); }
+.perm-item { display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 6px;border-radius:9px;font-size:10.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;transition:background .2s; }
+.perm-item.on { background:rgba(34,197,94,0.12);color:#86efac;border:1px solid rgba(34,197,94,0.25); }
+.perm-item.off { background:rgba(255,255,255,0.03);color:#4a4466;border:1px solid rgba(255,255,255,0.06); }
+.perm-item i { font-size:18px; }
+.perm-label { text-align:center;line-height:1.3; }
+
+/* PROGRAMS */
+.programs { display:flex;flex-direction:column;gap:8px; }
+.program { display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 18px;text-decoration:none;transition:border-color .2s,background .2s;animation:fadeUp .5s ease both; }
+.program:hover { background:var(--surface2);border-color:var(--border2); }
+.program-icon { width:36px;height:36px;border-radius:10px;background:rgba(168,85,247,0.1);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0; }
+.program-info { flex:1; }
+.program-name { font-size:14px;font-weight:700;color:var(--text); }
+.program-desc { font-size:12px;color:var(--text-muted);margin-top:2px; }
+.program-arrow { color:var(--text-dim);font-size:13px;transition:color .2s,transform .2s; }
+.program:hover .program-arrow { color:var(--accent);transform:translateX(3px); }
+
+/* TEXTS LINK */
+.texts-card { display:flex;align-items:center;gap:14px;background:rgba(168,85,247,0.06);border:1px solid rgba(168,85,247,0.2);border-radius:14px;padding:16px 20px;text-decoration:none;margin-top:8px;transition:background .2s,border-color .2s;animation:fadeUp .5s ease both; }
+.texts-card:hover { background:rgba(168,85,247,0.1);border-color:rgba(168,85,247,0.4); }
+.texts-icon { width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--accent2),var(--accent));color:#fff;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;box-shadow:0 0 16px rgba(168,85,247,0.3); }
+.texts-info { flex:1; }
+.texts-name { font-size:14px;font-weight:700;color:var(--text); }
+.texts-desc { font-size:12px;color:var(--text-muted);margin-top:2px; }
+
+@keyframes fadeDown { from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)} }
+@media(max-width:560px){ .hero-title{font-size:30px} .wrap{padding:36px 16px 80px} .permissions-grid{grid-template-columns:repeat(3,1fr)} }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-orb1"></div>
+<div class="bg-orb2"></div>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="hero-badge"><i class="fas fa-shield-alt"></i> CrystalCraft</div>
+    <h1 class="hero-title">Проверка через <span>AnyDesk</span></h1>
+    <p class="hero-sub">Инструкция по прохождению проверки на читы. Внимательно прочитайте перед началом.</p>
+  </div>
+
+  <div class="alert">
+    <div class="alert-icon"><i class="fas fa-exclamation-triangle"></i></div>
+    <div class="alert-text"><b>Важно!</b> Если администратор при проверке открывает <b>Командную строку</b> или <b>PowerShell</b> — немедленно выключайте AnyDesk и подавайте жалобу на форум!</div>
+  </div>
+
+  <div class="section-label">Шаги для прохождения проверки</div>
+  <div class="steps">
+
+    <div class="step" style="animation-delay:.05s">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-text">Перейдите на официальный сайт AnyDesk и скачайте программу: <a href="https://anydesk.com/ru" target="_blank">anydesk.com/ru</a></div>
+        <div class="step-img" style="margin-top:10px">
+          <img src="https://i.imgur.com/Hnc078n.png" alt="Сайт AnyDesk" style="width:100%;display:block;border-radius:10px;">
+          <div style="padding:6px 14px 10px;font-size:11.5px;color:#6a6488;text-align:center;">Нажмите кнопку "Загрузить сейчас" слева по центру</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" style="animation-delay:.08s">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-text">Дождитесь установки и откройте программу. По центру вы увидите надпись <b>"Это рабочее место"</b> и 9–10 цифр. Нажмите на них — они автоматически скопируются в буфер обмена.</div>
+        <div class="step-img" style="margin-top:10px">
+          <img src="https://i.imgur.com/fKmYyZ1.png" alt="Рабочее место AnyDesk" style="width:100%;display:block;border-radius:10px;">
+          <div style="padding:6px 14px 10px;font-size:11.5px;color:#6a6488;text-align:center;">Нажмите на цифры — они скопируются автоматически</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" style="animation-delay:.11s">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-text">Зайдите в Minecraft и отправьте ваш код модератору в чат с помощью <b>Ctrl+V</b>.</div>
+      </div>
+    </div>
+
+    <div class="step" style="animation-delay:.14s">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-text">У вас откроется окно AnyDesk с запросом. В разрешениях <b>выключите всё, кроме мышки и клавиатуры</b> (как показано ниже), затем нажмите <b>"Принять"</b> с замочком. После этого не трогайте мышку и клавиатуру — не мешайте проверке.</div>
+        <div class="step-img" style="margin-top:10px">
+          <img src="https://i.imgur.com/OGFErHZ.jpeg" alt="Разрешения AnyDesk" style="width:100%;display:block;border-radius:10px;">
+          <div style="padding:6px 14px 10px;font-size:11.5px;color:#6a6488;text-align:center;">Оставьте включёнными только мышь и клавиатуру (обведены зелёным)</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-label" style="margin-top:32px">Программы для проверки</div>
+  <div style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">Эти программы необходимы для проверки вашего ПК на читы. Скачайте заранее или по запросу модератора.</div>
+  <div class="programs">
+    <a href="https://www.voidtools.com/" target="_blank" class="program" style="animation-delay:.05s">
+      <div class="program-icon"><i class="fas fa-search"></i></div>
+      <div class="program-info"><div class="program-name">Everything</div><div class="program-desc">Быстрый поиск файлов на ПК</div></div>
+      <i class="fas fa-arrow-right program-arrow"></i>
+    </a>
+    <a href="https://privazer.com/en/download-shellbag-analyzer-shellbag-cleaner.php" target="_blank" class="program" style="animation-delay:.08s">
+      <div class="program-icon"><i class="fas fa-folder-open"></i></div>
+      <div class="program-info"><div class="program-name">Shellbag Analyzer & Cleaner</div><div class="program-desc">Анализ истории открытых папок</div></div>
+      <i class="fas fa-arrow-right program-arrow"></i>
+    </a>
+    <a href="https://systeminformer.com/" target="_blank" class="program" style="animation-delay:.11s">
+      <div class="program-icon"><i class="fas fa-microchip"></i></div>
+      <div class="program-info"><div class="program-name">SystemInformer</div><div class="program-desc">Мониторинг процессов и системы</div></div>
+      <i class="fas fa-arrow-right program-arrow"></i>
+    </a>
+    <a href="https://www.softportal.com/get-35481-recentfilesview.html" target="_blank" class="program" style="animation-delay:.14s">
+      <div class="program-icon"><i class="fas fa-clock"></i></div>
+      <div class="program-info"><div class="program-name">RecentFilesView</div><div class="program-desc">Просмотр недавно открытых файлов</div></div>
+      <i class="fas fa-arrow-right program-arrow"></i>
+    </a>
+    <a href="https://github.com/ponei/JournalTrace/releases/tag/1.0" target="_blank" class="program" style="animation-delay:.17s">
+      <div class="program-icon"><i class="fab fa-github"></i></div>
+      <div class="program-info"><div class="program-name">JournalTrace</div><div class="program-desc">Анализ журнала событий Windows</div></div>
+      <i class="fas fa-arrow-right program-arrow"></i>
+    </a>
+  </div>
+
+  <div class="section-label" style="margin-top:28px">Тексты для программ</div>
+  <a href="https://pastebin.com/raw/NgG84eL0" target="_blank" class="texts-card" style="animation-delay:.1s">
+    <div class="texts-icon"><i class="fas fa-file-code"></i></div>
+    <div class="texts-info">
+      <div class="texts-name">Скрипты и тексты для проверки</div>
+      <div class="texts-desc">Необходимые команды для программ — pastebin.com</div>
+    </div>
+    <i class="fas fa-arrow-right" style="color:var(--text-dim);font-size:13px"></i>
+  </a>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Правила — CrystalCraft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Nunito:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0d0d0d; --surface: #111111; --surface2: #151515;
+  --border: rgba(130,80,255,0.12); --border2: rgba(130,80,255,0.2);
+  --accent: #a855f7; --accent2: #7c3aed; --accent3: #c084fc;
+  --text: #f0e8ff; --text-muted: #7a7898; --text-dim: #3d3c55;
+  --red: #ef4444; --yellow: #f59e0b; --green: #22c55e; --blue: #3b82f6;
+  --orange: #f97316;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+
+/* BG */
+.bg-grid { position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(168,85,247,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(168,85,247,0.02) 1px,transparent 1px);background-size:56px 56px; }
+.bg-orb1 { position:fixed;width:700px;height:500px;top:-200px;left:-200px;background:radial-gradient(ellipse,rgba(124,58,237,0.05),transparent 70%);pointer-events:none;z-index:0; }
+.bg-orb2 { position:fixed;width:500px;height:500px;bottom:-150px;right:-100px;background:radial-gradient(ellipse,rgba(168,85,247,0.04),transparent 70%);pointer-events:none;z-index:0; }
+
+.wrap { position:relative;z-index:1;max-width:780px;margin:0 auto;padding:52px 24px 100px; }
+
+/* HERO */
+.hero { text-align:center;margin-bottom:52px;animation:fadeDown .6s ease both; }
+.hero-badge { display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.25);color:var(--accent);padding:5px 15px;border-radius:20px;margin-bottom:18px; }
+.hero-title { font-family:'Rajdhani',sans-serif;font-size:46px;font-weight:700;color:#fff;letter-spacing:-1px;line-height:1.05;margin-bottom:12px;text-shadow:0 0 60px rgba(168,85,247,0.35); }
+.hero-title span { color:var(--accent); }
+.hero-sub { font-size:14px;color:var(--text-muted);line-height:1.7;max-width:520px;margin:0 auto 24px; }
+.hero-code { display:inline-flex;align-items:center;gap:10px;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.25);border-radius:12px;padding:10px 20px;font-size:13px;color:var(--text-muted); }
+.hero-code strong { font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:var(--accent);letter-spacing:3px; }
+
+/* TOC */
+.toc { background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px 24px;margin-bottom:36px;animation:fadeUp .5s ease .1s both; }
+.toc-title { font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--text-dim);margin-bottom:14px;display:flex;align-items:center;gap:8px; }
+.toc-title::before { content:'';display:block;width:14px;height:2px;background:var(--accent);border-radius:2px; }
+.toc-links { display:flex;flex-wrap:wrap;gap:8px; }
+.toc-links a { font-size:12.5px;color:var(--text-muted);text-decoration:none;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:5px 12px;transition:color .2s,border-color .2s,background .2s; }
+.toc-links a:hover { color:var(--accent);border-color:rgba(168,85,247,0.35);background:rgba(168,85,247,0.06); }
+
+/* SECTION */
+.section { margin-bottom:12px;animation:fadeUp .5s ease both; }
+.section-header { display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:14px 14px 0 0;padding:16px 22px;cursor:pointer;user-select:none;transition:border-color .2s,background .2s; }
+.section-header:hover { background:var(--surface2);border-color:var(--border2); }
+.section-header.open { border-color:rgba(168,85,247,0.3);border-radius:14px 14px 0 0; }
+.section-num { font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--accent);background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.2);border-radius:7px;padding:3px 9px;flex-shrink:0; }
+.section-name { font-family:'Rajdhani',sans-serif;font-size:17px;font-weight:700;color:#e8e0ff;flex:1; }
+.section-icon { font-size:16px;color:var(--text-dim);flex-shrink:0; }
+.section-chevron { font-size:12px;color:var(--text-dim);transition:transform .25s;flex-shrink:0; }
+.section-header.open .section-chevron { transform:rotate(180deg); }
+
+.section-body { background:var(--surface);border:1px solid rgba(168,85,247,0.3);border-top:none;border-radius:0 0 14px 14px;overflow:hidden;max-height:0;transition:max-height .35s ease; }
+.section-body.open { max-height:9999px; }
+.section-inner { padding:6px 8px 16px; }
+
+/* RULE */
+.rule { display:flex;gap:0;border-radius:10px;margin:4px 0;overflow:hidden;transition:background .2s; }
+.rule:hover { background:rgba(168,85,247,0.04); }
+.rule-num { font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:var(--accent3);min-width:56px;padding:11px 8px 11px 14px;flex-shrink:0;opacity:.7; }
+.rule-text { font-size:13.5px;color:#c8c0e0;line-height:1.65;padding:10px 14px 10px 0;flex:1; }
+.rule-text b { color:var(--text);font-weight:600; }
+
+/* PENALTIES */
+.penalty { display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;border-radius:6px;padding:2px 8px;margin:2px 2px 0 0;vertical-align:middle;white-space:nowrap; }
+.p-ban { background:rgba(239,68,68,0.12);color:#fca5a5;border:1px solid rgba(239,68,68,0.25); }
+.p-mute { background:rgba(245,158,11,0.12);color:#fcd34d;border:1px solid rgba(245,158,11,0.25); }
+.p-perm { background:rgba(239,68,68,0.2);color:#f87171;border:1px solid rgba(239,68,68,0.4); }
+.p-kick { background:rgba(59,130,246,0.12);color:#93c5fd;border:1px solid rgba(59,130,246,0.25); }
+.p-warn { background:rgba(34,197,94,0.1);color:#86efac;border:1px solid rgba(34,197,94,0.2); }
+
+/* MODS LIST */
+.mods-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:6px;padding:8px 14px 14px; }
+.mod-item { display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:9px;padding:8px 12px;font-size:12.5px; }
+.mod-name { color:#c8c0e0; }
+.mod-ban { font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:#fca5a5; }
+
+/* SPECIAL */
+.rule-special { background:rgba(168,85,247,0.06);border:1px solid rgba(168,85,247,0.2);border-radius:10px;margin:8px 14px;padding:12px 16px;font-size:13px;color:#c084fc;display:flex;align-items:flex-start;gap:10px; }
+.rule-special i { margin-top:2px;flex-shrink:0; }
+
+.secret { background:linear-gradient(135deg,rgba(168,85,247,0.12),rgba(124,58,237,0.08));border:1px solid rgba(168,85,247,0.3);border-radius:14px;padding:20px 24px;margin-top:36px;text-align:center;animation:fadeUp .5s ease .3s both; }
+.secret-label { font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px; }
+.secret-word { font-family:'Rajdhani',sans-serif;font-size:36px;font-weight:700;color:var(--accent);letter-spacing:6px;text-shadow:0 0 30px rgba(168,85,247,0.5); }
+.secret-sub { font-size:12px;color:var(--text-dim);margin-top:6px; }
+
+@keyframes fadeDown { from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)} }
+@media(max-width:560px){.hero-title{font-size:32px}.mods-grid{grid-template-columns:1fr}.wrap{padding:36px 16px 80px}}
+</style>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="bg-orb1"></div>
+<div class="bg-orb2"></div>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="hero-badge"><i class="fas fa-book-open"></i> Гриферское выживание</div>
+    <h1 class="hero-title">Правила <span>CrystalCraft</span></h1>
+    <p class="hero-sub">Ознакомься с правилами перед игрой. Незнание правил не освобождает от ответственности.</p>
+
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">Содержание</div>
+    <div class="toc-links">
+      <a href="#s1" onclick="goTo('s1');return false;">1. Общие положения</a>
+      <a href="#s2" onclick="goTo('s2');return false;">2. Регистрация</a>
+      <a href="#s3" onclick="goTo('s3');return false;">3. Донат</a>
+      <a href="#s4" onclick="goTo('s4');return false;">4. Общение</a>
+      <a href="#s5" onclick="goTo('s5');return false;">5. Запрещённое ПО</a>
+      <a href="#s6" onclick="goTo('s6');return false;">6. Игровой процесс</a>
+      <a href="#s7" onclick="goTo('s7');return false;">7. Проверки</a>
+      <a href="#s8" onclick="goTo('s8');return false;">8. Донатеры</a>
+    </div>
+  </div>
+
+  <!-- 1 -->
+  <div class="section" id="s1" style="animation-delay:.05s">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-num">01</span>
+      <span class="section-name">Общие положения</span>
+      <i class="fas fa-globe section-icon"></i>
+      <i class="fas fa-chevron-down section-chevron"></i>
+    </div>
+    <div class="section-body">
+      <div class="section-inner">
+        <div class="rule"><span class="rule-num">1.1</span><span class="rule-text">Данный свод правил составлен представителем проекта CrystalCraft и действителен на всех игровых режимах проекта. Незнание правил не освобождает нарушителя от ответственности, а также может усугубить наказание.</span></div>
+        <div class="rule"><span class="rule-num">1.2</span><span class="rule-text">Проект CrystalCraft — комплекс серверов, расположенных по адресам: <b>mc.crystalcraft.pro</b>, <b>tt.crystalcraft.pro</b>. Все остальные домены таковыми не являются. Регистрируясь на нашем проекте, вы автоматически принимаете данные правила, а также правила других режимов.</span></div>
+        <div class="rule"><span class="rule-num">1.3</span><span class="rule-text">Правила могут быть изменены без явного оповещения основной аудитории проекта. При значительных изменениях правил на форуме проекта отображается объявление.</span></div>
+        <div class="rule"><span class="rule-num">1.4</span><span class="rule-text">Решения и действия главной администрации (<b>Ic3_YT</b>, <b>playDIM</b>) не обсуждаются и не поддаются разжалованию. Главная администрация вправе выдавать наказания вне рамок данных правил.</span></div>
+        <div class="rule"><span class="rule-num">1.5</span><span class="rule-text">Администрация сервера не выдаёт игровые ресурсы/компенсации за их потерю в результате кика сервера, лагов/багов, а также действия игроков, использующие запрещённое ПО (читы).</span></div>
+        <div class="rule"><span class="rule-num">1.6</span><span class="rule-text">Продажа, взломы, попытки взломов, передачи аккаунтов, покупки аккаунтов в обход официального сайта, распространение данных игроков, вред серверу, а также продажи/покупки чего-либо за реальную валюту — строго запрещены. Наказание — отключение всех аккаунтов без возможности приобрести разбан. Соучастие, содействие, совместная игра с нарушителями также попадают под это правило. Аккаунты, с которых был нанесён серьёзный вред проекту — не подлежат восстановлению, даже если аккаунт был в тот момент взломан, добровольно передан или продан. Ответственность несёт владелец аккаунта, независимо от того, кто совершал действия под данным аккаунтом. <span class="penalty p-perm"><i class="fas fa-skull"></i> Отключение навсегда</span></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="section" id="s2" style="animation-delay:.1s">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-num">02</span>
+      <span class="section-name">Правила регистрации</span>
+      <i class="fas fa-user section-icon"></i>
+      <i class="fas fa-chevron-down section-chevron"></i>
+    </div>
+    <div class="section-body">
+      <div class="section-inner">
+        <div class="rule"><span class="rule-num">2.1</span><span class="rule-text">Никнейм пользователя должен быть корректным. Некорректным можно назвать любой ник, нарушающий закреплённые правила, а также: <span class="penalty p-perm"><i class="fas fa-lock"></i> Блокировка аккаунта; для сменённых — предупреждение, затем блокировка</span><br><br>
+          <b>2.1.1</b> Никнейм, похожий на никнейм высшей Администрации (исключение — никнеймы ютуберов проекта).<br>
+          <b>2.1.2</b> Никнейм сексуального, аморального содержания (название половых органов, процессов и пр.).<br>
+          <b>2.1.3</b> Никнейм, оскорбляющий никнейм другого игрока.<br>
+          <b>2.1.4</b> Никнейм, содержащий названия запрещённых ПО (пример: Nursultan777).<br>
+          <b>2.1.5</b> Никнейм, содержащий грубые матерные слова.<br>
+          <b>2.1.6</b> Никнейм, не носящий определённого смысла или являющийся набором символов/цифр — от 8 символов (исключение — аккаунты, на которых приобретена платная услуга).
+        </span></div>
+        <div class="rule"><span class="rule-num">2.2</span><span class="rule-text">При покупке платных донатов, кейсов, кристаллов предоставленный системой чек необходимо сохранить.</span></div>
+        <div class="rule"><span class="rule-num">2.3</span><span class="rule-text">При утере/взломе аккаунта необходимо обратиться к техподдержке. Если ваш аккаунт был привязан, вы можете восстановить его самостоятельно. Без электронного чека в восстановлении будет отказано. Повторную отправку чека проект не предоставляет в целях безопасности. Ссылка на техподдержку: <b>vk.com/crystalcraft</b><br><br>
+          <b>2.3.1</b> Безопасность аккаунта не гарантируется проектом. Процедура по обеспечению безопасности полностью лежит на плечах игрока. В случае утери аккаунта администрация вправе отказать в восстановлении, а также может полностью обнулить аккаунт и заблокировать, если с него нанесли серьёзный вред проекту и его интеллектуальным правам.
+        </span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="section" id="s3" style="animation-delay:.15s">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-num">03</span>
+      <span class="section-name">Приобретение платных услуг</span>
+      <i class="fas fa-gem section-icon"></i>
+      <i class="fas fa-chevron-down section-chevron"></i>
+    </div>
+    <div class="section-body">
+      <div class="section-inner">
+        <div class="rule"><span class="rule-num">3.1</span><span class="rule-text">Игра на проекте не подразумевает платы за использование ресурсов CrystalCraft.</span></div>
+        <div class="rule"><span class="rule-num">3.2</span><span class="rule-text">Игрок вправе добровольно оплатить определённую сумму проекту за внутриигровую услугу в одностороннем порядке.</span></div>
+        <div class="rule"><span class="rule-num">3.3</span><span class="rule-text">При ошибке платежа либо отсутствии внутриигровой услуги после оплаты необходимо обращаться в техподдержку при наличии электронного чека, который приходит на указанную почту. Без электронного чека в восстановлении будет отказано. Повторную отправку чека проект не предоставляет в целях безопасности. Чек необходимо сохранять в момент оплаты или найти на электронной почте.</span></div>
+        <div class="rule"><span class="rule-num">3.4</span><span class="rule-text"><b>Возврата средств нет</b>, так как CrystalCraft не является коммерческой организацией и все покупки являются добровольными пожертвованиями на развитие сервера.</span></div>
+        <div class="rule"><span class="rule-num">3.6</span><span class="rule-text">Покупка платных групп не даёт привилегии на игнорирование/нарушение данных правил.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="section" id="s4" style="animation-delay:.2s">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-num">04</span>
+      <span class="section-name">Внутриигровое общение</span>
+      <i class="fas fa-comments section-icon"></i>
+      <i class="fas fa-chevron-down section-chevron"></i>
+    </div>
+    <div class="section-body">
+      <div class="section-inner">
+        <div class="rule"><span class="rule-num">4.1</span><span class="rule-text">Запрещено флудить — отправлять больше 2 похожих по смыслу или одинаковых сообщений подряд за одну минуту (2 сообщения можно, 3 нельзя). <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 4ч</span><br>
+          <b>4.1.1</b> Запрещено согласовывать с другими игроками или использовать свои твинки для отправки одного и того же сообщения в короткий промежуток времени — иными словами, обходить наказание за флуд, используя третьи аккаунты. <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 4ч каждому участнику</span><br>
+          <b>4.1.2</b> Запрещено использовать объявления для обхода наказания за флуд (2 /bc и сообщение в глобал, или наоборот — 2 сообщения и 1 /bc). <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 6ч</span>
+        </span></div>
+        <div class="rule"><span class="rule-num">4.2</span><span class="rule-text">Запрещено флудить символами — использовать комбинации бессмысленных символов типа "!!!!!!!!!!!!!!!!" или смеха (более 10 символов). <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 4ч</span><br>
+          <b>4.2.1</b> Злоупотребление капсом — если в предложении (от 3 слов) более 50% написано в Caps'е. <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 4ч</span>
+        </span></div>
+        <div class="rule"><span class="rule-num">4.3</span><span class="rule-text">Запрещено организовывать флуд опросами типа «отправьте + в чат». <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 4ч</span><br>
+          <b>Исключения:</b> просьба приютить/продать или обменять ресурсы, математические примеры (не более 3 в течение 5 минут), «кто примет в клан + в чат», «кто дуэль + в чат», «кто выживать вместе + в чат».<br>
+          <b>4.3.1</b> Если при организации флуда на ваше сообщение ответило 6 и более человек — организатору <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 6ч</span>, всем кто отреагировал — <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 4ч</span>
+        </span></div>
+        <div class="rule"><span class="rule-num">4.4</span><span class="rule-text">Неадекватное поведение, чрезмерные оскорбления и агрессия. <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 3–12ч</span><br>
+          Оскорбления, унижения, угрозы к участникам сервера, игрокам (даже без указания конкретного игрока; упоминание/затрагивание расы — исключение). <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 4ч</span><br>
+          Злоупотребление нецензурной лексикой. <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 2–4ч</span><br>
+          Аморальное поведение, темы для совершеннолетних. <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 3ч</span><br>
+          Призывы к суициду. <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 6ч</span><br>
+          Оскорбление проекта, унижение проекта, оскорбительные названия (любой вид чата). <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 30д</span><br>
+          Публичная критика проекта в общем чате. <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 3д</span>
+        </span></div>
+        <div class="rule"><span class="rule-num">4.5</span><span class="rule-text">Выпрашивание снятия/выдачи наказаний у Администрации (исключение — выпрашивание у Ic3_YT). <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 2ч</span><br>
+          <b>4.5.1</b> Выпрашивание ресурсов у персонала проекта (исключение — у Ic3_YT). <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 1ч</span>
+        </span></div>
+        <div class="rule"><span class="rule-num">4.6</span><span class="rule-text">Дезинформация игроков проекта неофициальной информацией, внутриигровой информацией («Скоро вайп» — исключение). <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 12ч</span> / <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 4д</span><br>
+          <b>4.6.1</b> Внеигровой обман игроков. Например, сочетаниями клавиш Alt+F4 или зажатием клавиш F3+C. <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 6ч</span>
+        </span></div>
+        <div class="rule"><span class="rule-num">4.7</span><span class="rule-text">Запрещено упоминание сторонних проектов, ресурсов, групп, соцсетей и подобного. <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 2ч</span> / обход правила: <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 1д</span><br>
+          <b>4.7.1</b> Любое упоминание Discord/Telegram-контактов (исключение — личные сообщения, локальный чат с модератором). <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 2д</span><br>
+          <b>4.7.2</b> Реклама сторонних проектов (обход данного правила), любой вид чата. <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 60д</span><br>
+          <b>4.7.3</b> Реклама в личных сообщениях, попытка обойти наказание в глобальном чате. <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 60д</span><br>
+          <b>4.7.4</b> Распространение вредоносных ссылок (скримеры, стиллеры, платные краткие ссылки). <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 14д</span>
+        </span></div>
+        <div class="rule"><span class="rule-num">4.8</span><span class="rule-text">Оскорбление родителей, некорректное обращение к родителям любого игрока, оскорбительные упоминания. <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 5д</span> за оскорбительное упоминание / <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 10–15д</span> за оскорбление.<br>
+          <b>4.8.1</b> Оскорбление своих родителей. <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 5д</span>
+        </span></div>
+        <div class="rule"><span class="rule-num">4.9</span><span class="rule-text">Затрагивание политики, политическая агитация. <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 3–7д</span> или <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 2д</span></span></div>
+        <div class="rule"><span class="rule-num">4.10</span><span class="rule-text">Выдача себя за администрацию проекта. <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 3д</span><br>
+          <b>4.10.1</b> Угрозы баном/киком/мутом. <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 12ч</span>
+        </span></div>
+        <div class="rule"><span class="rule-num">4.11</span><span class="rule-text">Оскорбление модерации и администрации (любой вид чата). <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 5–15д</span><br>
+          <b>4.11.1</b> Оскорбление родных администрации (любой вид чата). <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 20д</span><br>
+          <b>4.11.2</b> Шутки или рофлы в сторону администрации, состава проекта. <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 2д</span><br>
+          <b>4.11.3</b> Неуважительное/неадекватное общение с администрацией. <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 12ч</span><br>
+          <b>4.11.4</b> Угроза администрации снятием, угроза наказанием. <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 4ч</span>
+        </span></div>
+        <div class="rule"><span class="rule-num">4.12</span><span class="rule-text">Оскорбление медиа состава проекта (любой вид чата). <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 3–5д</span><br>
+          <b>4.12.1</b> Оскорбление родных администрации медиа составника. <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 15д</span><br>
+          <b>4.12.2</b> Шутки или рофлы в сторону ютуберов проекта. <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 1д</span><br>
+          <b>4.12.3</b> Неадекватное общение с ютуберами проекта. <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 6ч</span>
+        </span></div>
+        <div class="rule"><span class="rule-num">4.13</span><span class="rule-text">Пропаганда нацизма/расизма, табакокурения, наркотиков, оружия, терроризма и т.д. <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 7д</span><br>
+          Бартер между играми. <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 4д</span>
+        </span></div>
+        <div class="rule"><span class="rule-num">4.14</span><span class="rule-text">Распространение личных данных игроков (доксинг, сватинг). Угрозы также сюда относятся. <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 30д</span><br>
+          <b>4.14.1</b> Доксинг, сватинг и подобные нарушения в сторону сотрудника сервера. <span class="penalty p-perm"><i class="fas fa-skull"></i> Отключение аккаунта</span>
+        </span></div>
+        <div class="rule"><span class="rule-num">4.15</span><span class="rule-text">Провокация игроков на нарушение правил. <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 12ч / 2д / 4д</span></span></div>
+        <div class="rule"><span class="rule-num">4.16</span><span class="rule-text">Любое упоминание денежных операций с реальной валютой любой размерности. <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 2д</span></span></div>
+        <div class="rule"><span class="rule-num">4.17</span><span class="rule-text">Музыка/посторонние звуки (кроме голоса игрока) в голосовой чат. <span class="penalty p-mute"><i class="fas fa-microphone-slash"></i> Мут 6ч</span></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="section" id="s5" style="animation-delay:.25s">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-num">05</span>
+      <span class="section-name">Запрещённое ПО и читы</span>
+      <i class="fas fa-shield-virus section-icon"></i>
+      <i class="fas fa-chevron-down section-chevron"></i>
+    </div>
+    <div class="section-body">
+      <div class="section-inner">
+        <div class="rule"><span class="rule-num">5.2</span><span class="rule-text">Использование вредоносного, читерского ПО, получение преимущества над игроками. <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 50д</span> + снос основного дома + возможное отключение аккаунта (на усмотрение администрации).<br>
+          <b>5.2.1</b> Совместная игра с игроком, нарушившим пункт 5.2. <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 40д</span><br>
+          <b>5.2.2</b> Признание на проверке. <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 45д</span><br>
+          <b>5.2.3</b> Признание в наличии читов (в любом виде чата). <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 10д</span><br>
+          <b>5.2.4</b> Обход блокировки аккаунта — считается вход с любого аккаунта после уже имеющейся блокировки. Любые попытки обойти правило 5.2.4 будут квалифицироваться как обход бана. <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 70д</span><br>
+          <b>5.2.5</b> Читы удалены менее 14 дней назад. <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 50д</span><br>
+          <b>5.2.5.1</b> Запрещено хранить у себя читы, хранение читов. <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 50д</span> (в случае если срок хранения не превысил более 5 месяцев)<br>
+          <b>5.2.6</b> Использование авто-копателей или лесорубов. <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 5д</span><br>
+          <b>5.2.7</b> Использование ботов, макросов, плагинов, позволяющих автоматизировать сложные игровые процессы. <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 15д</span> Единственный пример: бот казино с фармом валюты. <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 14д</span><br>
+          <b>5.2.8</b> Неадекватное поведение на проверке — фейк-папки с названиями читов, шутки и рофлы в сторону администрации, попытка выпросить разбан или чтобы не банили, вопросы не по теме проверки. <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 50д</span><br>
+          <b>5.2.9</b> Использование виртуальных машин при проверке, различные манипуляции с обязательными программами для проверки, доступом к локальным дискам (ничего из этого не открывается, пишет «администратор ограничил доступ», просит пин-код, родительский контроль и т.д.) <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 50д</span> (попытка обхода проверки)<br>
+          <b>5.2.10</b> Использование макросов, запрещённых модов, кликеров (кроме фармилок). <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 5д / 7д / 15д / 30д / 50д</span><br>
+          <b>5.2.11</b> Использование .bat (батников) на чистку. <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 50д</span><br>
+          <b>5.2.11.1</b> Хранение .bat (батников) на очистку. <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 20д</span>
+        </span></div>
+      </div>
+
+      <div style="padding:4px 14px 8px;font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-top:8px">Запрещённые моды</div>
+      <div class="mods-grid">
+        <div class="mod-item"><span class="mod-name">ElytraSwap</span><span class="mod-ban">5д</span></div>
+        <div class="mod-item"><span class="mod-name">ArmorHotSwap</span><span class="mod-ban">5д</span></div>
+        <div class="mod-item"><span class="mod-name">AFK-Fish Mod</span><span class="mod-ban">5д</span></div>
+        <div class="mod-item"><span class="mod-name">InvMove</span><span class="mod-ban">7д</span></div>
+        <div class="mod-item"><span class="mod-name">TopkaAutoBuy v1/v2</span><span class="mod-ban">7д</span></div>
+        <div class="mod-item"><span class="mod-name">GoProne</span><span class="mod-ban">15д</span></div>
+        <div class="mod-item"><span class="mod-name">CleanCut</span><span class="mod-ban">15д</span></div>
+        <div class="mod-item"><span class="mod-name">Grass Bypass</span><span class="mod-ban">15д</span></div>
+        <div class="mod-item"><span class="mod-name">TopkaCasino</span><span class="mod-ban">15д</span></div>
+        <div class="mod-item"><span class="mod-name">Хитбоксы предметов (стойки и т.д.)</span><span class="mod-ban">15д</span></div>
+        <div class="mod-item"><span class="mod-name">StepUp Mod</span><span class="mod-ban">30д</span></div>
+        <div class="mod-item"><span class="mod-name">Slippery Mod</span><span class="mod-ban">50д</span></div>
+        <div class="mod-item"><span class="mod-name">Inventory Totem</span><span class="mod-ban">50д</span></div>
+        <div class="mod-item"><span class="mod-name">Aim Assistance</span><span class="mod-ban">50д</span></div>
+        <div class="mod-item"><span class="mod-name">Auto Look</span><span class="mod-ban">50д</span></div>
+        <div class="mod-item"><span class="mod-name">Zergatul.cheatutils</span><span class="mod-ban">50д</span></div>
+        <div class="mod-item"><span class="mod-name">DiamondSim</span><span class="mod-ban">50д</span></div>
+        <div class="mod-item"><span class="mod-name">X-ray Mod</span><span class="mod-ban">50д</span></div>
+        <div class="mod-item"><span class="mod-name">Chest Locator</span><span class="mod-ban">50д</span></div>
+        <div class="mod-item"><span class="mod-name">ChestESP</span><span class="mod-ban">50д</span></div>
+        <div class="mod-item"><span class="mod-name">Entity/Player X-Ray</span><span class="mod-ban">50д</span></div>
+        <div class="mod-item"><span class="mod-name">Spawner Locator</span><span class="mod-ban">50д</span></div>
+        <div class="mod-item"><span class="mod-name">AutoAttack</span><span class="mod-ban">50д</span></div>
+        <div class="mod-item"><span class="mod-name">InventoryProfilesNext</span><span class="mod-ban">50д</span></div>
+        <div class="mod-item"><span class="mod-name">Baritone / Fabritone</span><span class="mod-ban">50д</span></div>
+        <div class="mod-item"><span class="mod-name">NoClipFlyMod</span><span class="mod-ban">50д</span></div>
+        <div class="mod-item"><span class="mod-name">FreeCam</span><span class="mod-ban">50д</span></div>
+        <div class="mod-item"><span class="mod-name">PlayerHighlighter</span><span class="mod-ban">50д</span></div>
+        <div class="mod-item"><span class="mod-name">ClickCrystal 1.19.4 / 1.16.5</span><span class="mod-ban">50д</span></div>
+        <div class="mod-item"><span class="mod-name">AutoClicky</span><span class="mod-ban">50д</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="section" id="s6" style="animation-delay:.3s">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-num">06</span>
+      <span class="section-name">Игровой процесс и прочее</span>
+      <i class="fas fa-gamepad section-icon"></i>
+      <i class="fas fa-chevron-down section-chevron"></i>
+    </div>
+    <div class="section-body">
+      <div class="section-inner">
+        <div class="rule"><span class="rule-num">6.1</span><span class="rule-text">Запрещено причинение вреда проекту: заливы, лаг-машины, багоюз, дюпы.<br>
+          <b>6.1.1</b> Создание заливов и багоюз. <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 25д</span><br>
+          <b>6.1.2</b> Создание лаг-машин и всё, что может нанести вред работоспособности сервера. <span class="penalty p-perm"><i class="fas fa-skull"></i> Отключение аккаунта</span><br>
+          <b>6.1.3</b> Запрещено строительство ловушек без возможности выхода за счёт ограничений сервера. Например, использование стоек для брони, рамок, снега и песка душ. <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 25д</span> + снос дома/части дома в регионе, в котором находилась ловушка.<br>
+          <b>6.1.4</b> Использование и распространение дюпов. <span class="penalty p-perm"><i class="fas fa-skull"></i> Отключение аккаунта</span><br>
+          <b>6.1.5</b> Помеха работе персонала. Например: «Я по приколу написал спек». <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 6ч</span>
+        </span></div>
+        <div class="rule"><span class="rule-num">6.2</span><span class="rule-text">Флуд командами. Например: /pay Gallohad 1 (более 12 раз). <span class="penalty p-kick"><i class="fas fa-door-open"></i> Кик</span>, далее <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 12ч</span></span></div>
+        <div class="rule"><span class="rule-num">6.3</span><span class="rule-text">Некорректный текст, нарушающий правила чата на табличках, регионах, книгах. <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 5 / 15 / 30д</span></span></div>
+        <div class="rule"><span class="rule-num">6.4</span><span class="rule-text">/report (жалоба), оскорбляющая высшую администрацию. <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 5д</span></span></div>
+        <div class="rule"><span class="rule-num">6.5</span><span class="rule-text">Запрещена реклама, продажа, распространение читов, магазинов, дискорд-каналов, групп, связанных с продажей, взломом, обменом ресурсов. <span class="penalty p-perm"><i class="fas fa-skull"></i> Перманентная блокировка</span></span></div>
+        <div class="rule"><span class="rule-num">6.6</span><span class="rule-text">Создание кланов с нарушением правил чата (оскорбления, аморальное содержание, политический контекст, пропаганда чего-либо). <span class="penalty p-ban"><i class="fas fa-ban"></i> Удаление клана + блокировка основателя (не лидера) на 5–30д</span></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7 -->
+  <div class="section" id="s7" style="animation-delay:.35s">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-num">07</span>
+      <span class="section-name">Права модерации на проверке</span>
+      <i class="fas fa-search section-icon"></i>
+      <i class="fas fa-chevron-down section-chevron"></i>
+    </div>
+    <div class="section-body">
+      <div class="section-inner">
+        <div class="rule"><span class="rule-num">7.1</span><span class="rule-text">Модерация имеет право вызвать через AnyDesk или Discord. Проверка производится только по регламенту <b>f-crystalcraft.pro/anydesk</b>.<br>
+          <b>7.1.1</b> Модерация не имеет права просить полный доступ в AnyDesk — только доступ к мышке и клавиатуре.
+        </span></div>
+        <div class="rule"><span class="rule-num">7.2</span><span class="rule-text">Модерация не имеет права скидывать различные программы со своего компьютера. Все программы для проверки на читы скачиваются самостоятельно в браузере.<br>
+          <b>Обязательные:</b> Everything, RecentFilesView, ShellbagAnalyzer, RegScanner, JournalTrace, SystemInformer.<br>
+          <b>Необязательные (разрешены):</b> Recaf, JD-gui, JumplistsView, BrowsersDownloadsView, WinPrefetchView, Recuva.<br>
+          Скачивайте только с официальных сайтов или GitHub по первой ссылке.
+        </span></div>
+        <div class="rule"><span class="rule-num">7.3</span><span class="rule-text">Модераторы с повышенным доверием (Moder+) и выше по должности имеют право проверить ваш FunPay и другие сайты, на которых можно размещать ресурсы за реальную валюту.</span></div>
+        <div class="rule"><span class="rule-num">7.4</span><span class="rule-text">Проверка производится только через программы AnyDesk и Discord. Скачивать программы для проверок нужно только с официального сайта. Модерация не имеет права скидывать файл и просить его скачать.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8 -->
+  <div class="section" id="s8" style="animation-delay:.4s">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-num">08</span>
+      <span class="section-name">Правила для донатеров</span>
+      <i class="fas fa-crown section-icon"></i>
+      <i class="fas fa-chevron-down section-chevron"></i>
+    </div>
+    <div class="section-body">
+      <div class="section-inner">
+        <div class="rule"><span class="rule-num">8.1</span><span class="rule-text">Использование /bc не по назначению, нарушение правил в пунктах 4 раздела. <span class="penalty p-ban"><i class="fas fa-ban"></i> Бан 1–4д</span></span></div>
+        <div class="rule"><span class="rule-num">8.2</span><span class="rule-text">Кастомный префикс должен соответствовать всем правилам сервера. Запрещено создавать префиксы оскорбительного характера, а также префиксы, с помощью которых можно выдавать себя за администрацию — например: Helper, Moder, Admin, Owner, Developer, Support и т.д. После покупки кастомного префикса он должен пройти модерацию, и после этого перейдёт в ваше распоряжение. В случае отказа — возврат 80% стоимости. Совет от администрации: думайте изначально над созданием адекватного префикса.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="secret">
+    <div class="secret-label"><i class="fas fa-key"></i> &nbsp;Кодовое слово при подаче заявки на хелпера</div>
+    <div class="secret-word">IFAP</div>
+    <div class="secret-sub">Укажи это слово в заявке, чтобы подтвердить что ознакомился с правилами</div>
+  </div>
+
+</div>
+
+<script>
+function toggle(header) {
+  header.classList.toggle('open');
+  var body = header.nextElementSibling;
+  body.classList.toggle('open');
+}
+function goTo(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  var header = el.querySelector('.section-header');
+  var body = el.querySelector('.section-body');
+  if (header && !header.classList.contains('open')) {
+    header.classList.add('open');
+    body.classList.add('open');
+  }
+  setTimeout(function(){ el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
+}
+</script>
+</body>
+</html>

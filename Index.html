@@ -1,0 +1,262 @@
+<!-- Сохрани это как Index.html в Apps Script -->
+<!-- Задеплой: Развернуть → Новое развертывание → Веб-приложение → Все пользователи -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+.cc-page{font-family:'Inter',sans-serif;background:#0d0d0d;min-height:100vh;width:100%}
+.cc-hero{position:relative;text-align:center;padding:52px 20px 44px;overflow:hidden;border-bottom:1px solid #1a1a1a}
+.cc-hero-glow{position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:500px;height:220px;background:radial-gradient(ellipse,rgba(124,58,237,.18) 0%,transparent 70%);pointer-events:none}
+.cc-hero-badge{display:inline-block;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.25);color:#c084fc;padding:5px 14px;border-radius:20px;margin-bottom:14px}
+.cc-hero-title{font-family:'Rajdhani',sans-serif;font-size:42px;font-weight:700;color:#fff;margin:0 0 8px;letter-spacing:-.5px;text-shadow:0 0 40px rgba(168,85,247,.3)}
+.cc-hero-sub{font-size:14px;color:#555;margin:0}
+.cc-container{max-width:680px;margin:0 auto;padding:36px 20px 60px}
+.cc-section-label{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#3a3a3a;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.cc-section-label::before{content:'';display:inline-block;width:18px;height:2px;background:linear-gradient(90deg,#7c3aed,transparent);border-radius:2px}
+.cc-grid{display:flex;flex-direction:column;gap:7px}
+.cc-card{position:relative;display:flex;align-items:center;gap:14px;background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:14px 16px;text-decoration:none;color:inherit;overflow:hidden;transition:transform .2s,border-color .25s,background .2s;animation:ccFade .4s ease both;animation-delay:var(--delay,0s)}
+@keyframes ccFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.cc-card:hover{transform:translateX(5px);border-color:var(--accent,#3da5ff);background:#151515}
+.cc-card:hover .cc-bar{opacity:1}
+.cc-card:hover .cc-icon{color:var(--accent,#3da5ff);transform:scale(1.12)}
+.cc-card:hover .cc-arr{color:var(--accent,#3da5ff);transform:translateX(4px)}
+.cc-bar{position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent,#3da5ff);border-radius:12px 0 0 12px;opacity:0;transition:opacity .2s}
+.cc-icon{font-size:20px;color:#383838;width:32px;text-align:center;flex-shrink:0;transition:color .2s,transform .2s}
+.cc-body{flex:1;min-width:0}
+.cc-title{font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:700;color:#e8e8e8;letter-spacing:.2px;margin-bottom:1px}
+.cc-desc{font-size:12.5px;color:#666;margin-bottom:1px}
+.cc-sub{font-size:11.5px;color:#444}
+.cc-arr{font-size:12px;color:#2a2a2a;flex-shrink:0;transition:color .2s,transform .2s}
+.cc-footer{margin-top:48px;text-align:center;font-size:12px;color:#333;display:flex;align-items:center;justify-content:center;gap:8px}
+.cc-status-bar{display:flex;gap:10px;padding:12px 20px;border-bottom:1px solid #1a1a1a;justify-content:center;flex-wrap:wrap}
+.cc-status-card{display:flex;align-items:center;gap:8px;background:#111;border:1px solid #1e1e1e;border-radius:10px;padding:8px 14px;font-size:12.5px;color:#666;transition:border-color .2s}
+.cc-status-card.online{border-color:rgba(34,197,94,0.25)}
+.cc-status-dot{width:7px;height:7px;border-radius:50%;background:#333;flex-shrink:0;transition:background .3s,box-shadow .3s}
+.cc-status-dot.green{background:#22c55e;box-shadow:0 0 6px #22c55e;animation:ccBlink 2s infinite}
+.cc-status-dot.red{background:#ef4444}
+.cc-status-val{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#e8e8e8;margin:0 2px}
+.cc-copy-btn{cursor:pointer;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.2);color:#a855f7;font-size:11px;padding:2px 8px;border-radius:6px;margin-left:6px;transition:background .2s;font-family:'Inter',sans-serif}
+.cc-copy-btn:hover{background:rgba(168,85,247,0.18)}
+.cc-copy-btn.copied{background:rgba(34,197,94,0.1);border-color:rgba(34,197,94,0.3);color:#22c55e}
+.cc-footer-dot{color:#222}
+.cc-socials{display:flex;justify-content:center;gap:10px;margin-top:20px;flex-wrap:wrap}
+.cc-soc{display:flex;align-items:center;gap:7px;padding:8px 16px;border-radius:10px;background:#111;border:1px solid #1e1e1e;text-decoration:none;font-size:12.5px;color:#666;transition:color .2s,border-color .2s,background .2s}
+.cc-soc:hover{background:#151515}
+.cc-soc.vk:hover{color:#4a76a8;border-color:rgba(74,118,168,0.35)}
+.cc-soc.yt:hover{color:#ff4444;border-color:rgba(255,68,68,0.35)}
+.cc-soc.tg:hover{color:#29a9eb;border-color:rgba(41,169,235,0.35)}
+.cc-soc.dc:hover{color:#5865f2;border-color:rgba(88,101,242,0.35)}
+.cc-soc i{font-size:15px}
+#cc-chat-wrap{position:fixed;bottom:24px;right:24px;z-index:99999;font-family:'Inter',sans-serif}
+#cc-chat-btn{display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;border-radius:50px;padding:11px 18px 11px 13px;color:white;font-size:13.5px;font-weight:600;cursor:pointer;box-shadow:0 4px 20px rgba(124,58,237,.5);transition:transform .2s,box-shadow .2s;position:relative}
+#cc-chat-btn:hover{transform:scale(1.05);box-shadow:0 6px 28px rgba(124,58,237,.7)}
+#cc-btn-icon{font-size:18px}
+#cc-btn-ping{position:absolute;top:-3px;right:-3px;width:10px;height:10px;background:#22c55e;border-radius:50%;border:2px solid #0d0d0d}
+#cc-chat-box{position:absolute;bottom:58px;right:0;width:320px;background:rgba(13,10,22,.98);border:1px solid rgba(160,100,255,.2);border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.7),0 0 40px rgba(124,58,237,.12);display:none;flex-direction:column;overflow:hidden;height:480px;animation:ccPop .22s ease;transition:width .3s ease,height .3s ease}
+#cc-chat-box.fullscreen{width:440px;height:640px}
+#cc-fullscreen-btn{background:none;border:none;color:#444;font-size:13px;cursor:pointer;padding:4px 6px;border-radius:7px;transition:color .2s,background .2s;margin-left:4px}
+#cc-fullscreen-btn:hover{color:#fff;background:rgba(255,255,255,.08)}
+@keyframes ccPop{from{opacity:0;transform:scale(.92) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
+#cc-chat-box.open{display:flex}
+#cc-chat-head{display:flex;align-items:center;gap:10px;padding:13px 15px;border-bottom:1px solid rgba(160,100,255,.12);background:rgba(20,14,36,.95)}
+#cc-chat-av{width:36px;height:36px;border-radius:11px;flex-shrink:0;background:linear-gradient(135deg,#7c3aed,#c084fc);display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 0 14px rgba(168,85,247,.4)}
+#cc-chat-name{font-size:14px;font-weight:700;color:#f0e8ff}
+#cc-chat-status{font-size:11px;color:#9580b8;display:flex;align-items:center;gap:4px;margin-top:1px}
+.cc-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;box-shadow:0 0 5px #22c55e;display:inline-block;animation:ccBlink 2s infinite}
+@keyframes ccBlink{0%,100%{opacity:1}50%{opacity:.3}}
+#cc-chat-close{margin-left:auto;background:none;border:none;color:#444;font-size:15px;cursor:pointer;padding:4px 6px;border-radius:7px;transition:color .2s,background .2s}
+#cc-chat-close:hover{color:#fff;background:rgba(255,255,255,.08)}
+#cc-chat-msgs{flex:1;overflow-y:auto;padding:13px 11px;display:flex;flex-direction:column;gap:8px}
+*::-webkit-scrollbar{width:6px;height:6px}
+*::-webkit-scrollbar-track{background:rgba(0,0,0,0.2)}
+*::-webkit-scrollbar-thumb{background:rgba(168,85,247,0.4);border-radius:10px}
+*::-webkit-scrollbar-thumb:hover{background:rgba(168,85,247,0.7)}
+html{scrollbar-width:thin;scrollbar-color:rgba(168,85,247,0.4) rgba(0,0,0,0.2)}
+#cc-chat-msgs::-webkit-scrollbar{width:3px}
+#cc-chat-msgs::-webkit-scrollbar-thumb{background:rgba(168,85,247,.25);border-radius:3px}
+.cc-msg-row{display:flex;gap:7px;animation:ccMsgIn .2s ease}
+.cc-msg-row.user{flex-direction:row-reverse}
+@keyframes ccMsgIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.cc-msg-av{width:26px;height:26px;border-radius:8px;flex-shrink:0;align-self:flex-end;background:linear-gradient(135deg,#7c3aed,#c084fc);display:flex;align-items:center;justify-content:center;font-size:12px}
+.cc-bubble{max-width:82%;padding:8px 12px;border-radius:15px;font-size:13px;line-height:1.55;word-wrap:break-word}
+.cc-bubble.bot{background:rgba(22,16,38,1);border:1px solid rgba(160,100,255,.15);color:#f0e8ff;border-bottom-left-radius:4px}
+.cc-bubble.user{background:linear-gradient(135deg,#7c3aed,#a855f7);color:white;border-bottom-right-radius:4px}
+.cc-bubble a{color:#c084fc;text-decoration:underline}
+.cc-typing{display:flex;gap:7px}
+.cc-typing-bub{background:rgba(22,16,38,1);border:1px solid rgba(160,100,255,.15);border-radius:15px;border-bottom-left-radius:4px;padding:11px 14px;display:flex;gap:4px;align-items:center}
+.cc-td{width:6px;height:6px;border-radius:50%;background:#a855f7}
+.cc-td:nth-child(1){animation:ccB 1.2s infinite 0s}
+.cc-td:nth-child(2){animation:ccB 1.2s infinite .2s}
+.cc-td:nth-child(3){animation:ccB 1.2s infinite .4s}
+@keyframes ccB{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-5px);opacity:1}}
+#cc-chat-sugg{padding:0 11px 7px;display:flex;gap:5px;flex-wrap:wrap}
+.cc-sq{font-size:11px;font-weight:500;background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.22);color:#c084fc;padding:4px 9px;border-radius:14px;cursor:pointer;transition:background .15s;white-space:nowrap;font-family:'Inter',sans-serif}
+.cc-sq:hover{background:rgba(168,85,247,.18)}
+#cc-chat-inp{padding:9px 11px;border-top:1px solid rgba(160,100,255,.12);background:rgba(20,14,36,.95);display:flex;gap:7px;align-items:flex-end}
+#cc-inp{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(160,100,255,.18);border-radius:10px;color:#f0e8ff;font-family:'Inter',sans-serif;font-size:13px;padding:7px 11px;resize:none;outline:none;min-height:36px;max-height:80px;line-height:1.5}
+#cc-inp::placeholder{color:#9580b8}
+#cc-inp:focus{border-color:rgba(168,85,247,.45)}
+#cc-send{width:36px;height:36px;border-radius:10px;flex-shrink:0;background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;cursor:pointer;color:white;font-size:14px;transition:transform .15s}
+#cc-send:hover{transform:scale(1.08)}
+#cc-send:disabled{opacity:.35;cursor:not-allowed;transform:none}
+</style>
+</head>
+<body>
+
+<div class="cc-page">
+  <div class="cc-hero">
+    <div class="cc-hero-glow"></div>
+    <div class="cc-hero-content">
+      <div class="cc-hero-badge">💎 Официальный форум</div>
+      <h1 class="cc-hero-title">CrystalCraft</h1>
+      <p class="cc-hero-sub">Место где решается всё</p>
+    </div>
+  </div>
+  <div class="cc-status-bar">
+    <div class="cc-status-card" id="cc-s1">
+      <div class="cc-status-dot" id="cc-dot"></div>
+      <span id="cc-status-text">Загрузка...</span>
+    </div>
+    <div class="cc-status-card" id="cc-s2">
+      <i class="fas fa-users" style="font-size:12px;color:#555"></i>
+      <span class="cc-status-val" id="cc-online">—</span>
+      <span>/ </span><span id="cc-max">—</span>
+      <span style="margin-left:2px">игроков</span>
+    </div>
+    <div class="cc-status-card">
+      <i class="fas fa-server" style="font-size:12px;color:#555"></i>
+      <span style="margin:0 4px">mc.crystalcraft.pro</span>
+      <button class="cc-copy-btn" id="cc-copy-btn" onclick="ccCopyIP()">копировать</button>
+    </div>
+  </div>
+  <div class="cc-container">
+    <div class="cc-section-label">Основной раздел</div>
+    <div class="cc-grid">
+      <a href="https://www.f-crystalcraft.pro/технический-раздел" class="cc-card" target="_blank" style="--accent:#3da5ff;--delay:0s"><div class="cc-bar"></div><div class="cc-icon"><i class="fas fa-tools"></i></div><div class="cc-body"><div class="cc-title">Технический раздел проекта</div><div class="cc-desc">Баги и ошибки в работе сервера, идеи для сервера.</div><div class="cc-sub">Увидели баг или есть пожелание? Вам сюда!</div></div><div class="cc-arr"><i class="fas fa-chevron-right"></i></div></a>
+      <a href="https://www.f-crystalcraft.pro/медиа" class="cc-card" target="_blank" style="--accent:#ff4444;--delay:0.05s"><div class="cc-bar"></div><div class="cc-icon"><i class="fab fa-youtube"></i></div><div class="cc-body"><div class="cc-title">Сотрудничество Медиа</div><div class="cc-desc">Заявки на медиа-сотрудничество, жалобы.</div><div class="cc-sub">Вся информация о медиа-сфере проекта.</div></div><div class="cc-arr"><i class="fas fa-chevron-right"></i></div></a>
+      <a href="https://www.f-crystalcraft.pro/правила-состава" class="cc-card" target="_blank" style="--accent:#ff9900;--delay:0.1s"><div class="cc-bar"></div><div class="cc-icon"><i class="fas fa-shield-alt"></i></div><div class="cc-body"><div class="cc-title">Правила Персонала</div><div class="cc-desc">Правила для сотрудников сервера.</div></div><div class="cc-arr"><i class="fas fa-chevron-right"></i></div></a>
+      <a href="https://www.f-crystalcraft.pro/правила-форума" class="cc-card" target="_blank" style="--accent:#3da5ff;--delay:0.15s"><div class="cc-bar"></div><div class="cc-icon"><i class="fas fa-scroll"></i></div><div class="cc-body"><div class="cc-title">Правила форума</div><div class="cc-desc">Правила поведения на форуме.</div></div><div class="cc-arr"><i class="fas fa-chevron-right"></i></div></a>
+    </div>
+    <div class="cc-section-label" style="margin-top:32px">Гриферское выживание</div>
+    <div class="cc-grid">
+      <a href="https://www.f-crystalcraft.pro/правила-гриф" class="cc-card" target="_blank" style="--accent:#a855f7;--delay:0.2s"><div class="cc-bar"></div><div class="cc-icon"><i class="fas fa-book-open"></i></div><div class="cc-body"><div class="cc-title">Правила режима "Гриферское выживание"</div><div class="cc-desc">Ознакомьтесь с правилами перед началом игры.</div><div class="cc-sub">Все пункты поведения и игровых ограничений.</div></div><div class="cc-arr"><i class="fas fa-chevron-right"></i></div></a>
+      <a href="https://www.f-crystalcraft.pro/подача-заявки-на-должность-helper" class="cc-card" target="_blank" style="--accent:#22c55e;--delay:0.25s"><div class="cc-bar"></div><div class="cc-icon"><i class="fas fa-user-plus"></i></div><div class="cc-body"><div class="cc-title">Набор в состав проекта</div><div class="cc-desc">Хотите стать частью команды? Подайте заявку.</div><div class="cc-sub">Подходит для активных и ответственных игроков.</div></div><div class="cc-arr"><i class="fas fa-chevron-right"></i></div></a>
+      <a href="https://www.f-crystalcraft.pro/жалобы-на-адм-и-игроков" class="cc-card" target="_blank" style="--accent:#f59e0b;--delay:0.3s"><div class="cc-bar"></div><div class="cc-icon"><i class="fas fa-balance-scale"></i></div><div class="cc-body"><div class="cc-title">Жалобы на Администрацию и Игроков</div><div class="cc-desc">Если наказание было несправедливым — вам сюда.</div><div class="cc-sub">Укажите детали ситуации и приложите доказательства.</div></div><div class="cc-arr"><i class="fas fa-chevron-right"></i></div></a>
+      <a href="https://www.f-crystalcraft.pro/жалобы-на-адм-форума" class="cc-card" target="_blank" style="--accent:#22c55e;--delay:0.35s"><div class="cc-bar"></div><div class="cc-icon"><i class="fas fa-user-shield"></i></div><div class="cc-body"><div class="cc-title">Жалобы на Администрацию ФОРУМА</div><div class="cc-desc">Жалобы на действия модераторов форума.</div><div class="cc-sub">Каждый случай рассматривается индивидуально.</div></div><div class="cc-arr"><i class="fas fa-chevron-right"></i></div></a>
+    </div>
+    <div class="cc-socials">
+      <a href="https://vk.com/crystalcraft" class="cc-soc vk" target="_blank"><i class="fab fa-vk"></i>ВКонтакте</a>
+      <a href="https://www.youtube.com/@crystalcraft_youtube" class="cc-soc yt" target="_blank"><i class="fab fa-youtube"></i>YouTube</a>
+      <a href="https://t.me/CrystalCraft_Official" class="cc-soc tg" target="_blank"><i class="fab fa-telegram"></i>Telegram</a>
+      <a href="https://discord.gg/GbQ455q5Xs" class="cc-soc dc" target="_blank"><i class="fab fa-discord"></i>Discord</a>
+    </div>
+    <div class="cc-footer"><span>© CrystalCraft</span><span class="cc-footer-dot">·</span><span>mc.crystalcraft.pro</span><span class="cc-footer-dot">·</span><span>Официальный форум</span></div>
+  </div>
+</div>
+
+<div id="cc-chat-wrap">
+  <button id="cc-chat-btn" onclick="ccToggleChat()"><span id="cc-btn-icon">🔮</span><span id="cc-btn-label">CrystalAI</span><span id="cc-btn-ping"></span></button>
+  <div id="cc-chat-box">
+    <div id="cc-chat-head"><div id="cc-chat-av">🔮</div><div><div id="cc-chat-name">CrystalAI</div><div id="cc-chat-status"><span class="cc-dot"></span>Онлайн · Помощник форума</div></div><div style="display:flex;align-items:center;gap:2px;margin-left:auto"><button id="cc-fullscreen-btn" onclick="ccToggleFullscreen()" title="Развернуть чат"><i class="fas fa-expand" id="cc-fs-icon"></i></button><button id="cc-chat-close" onclick="ccToggleChat()"><i class="fas fa-times"></i></button></div></div>
+    <div id="cc-chat-msgs"></div>
+    <div id="cc-chat-sugg"><button class="cc-sq" onclick="ccSend('Правила сервера')">📋 Правила</button><button class="cc-sq" onclick="ccSend('Как подать жалобу?')">⚖️ Жалоба</button><button class="cc-sq" onclick="ccSend('Хочу стать хелпером')">👥 Хелпер</button><button class="cc-sq" onclick="ccSend('Что запрещено?')">🚫 Запреты</button></div>
+    <div id="cc-chat-inp"><textarea id="cc-inp" placeholder="Напиши вопрос..." rows="1"></textarea><button id="cc-send" onclick="ccSend()">➤</button></div>
+  </div>
+</div>
+
+<script>
+var CC_PROXY="https://script.google.com/macros/s/AKfycbyGiEaj_fr38WvRs15S66fKkChpqM81Z8VZfYPXygHILHvIo036rhnKcf1vs1aamLo3/exec";
+async function ccLoadStatus() {
+  try {
+    var res = await fetch('https://api.mcsrvstat.us/3/mc.crystalcraft.pro');
+    var data = await res.json();
+    var dot = document.getElementById('cc-dot');
+    var statusText = document.getElementById('cc-status-text');
+    var onlineEl = document.getElementById('cc-online');
+    var maxEl = document.getElementById('cc-max');
+    var s1 = document.getElementById('cc-s1');
+    var s2 = document.getElementById('cc-s2');
+    if (data.online) {
+      dot.className = 'cc-status-dot green';
+      statusText.innerHTML = '<span style="color:#22c55e;font-weight:600">Онлайн</span>';
+      s1.classList.add('online');
+      onlineEl.textContent = data.players ? data.players.online : '0';
+      maxEl.textContent = data.players ? data.players.max : '0';
+      s2.classList.add('online');
+    } else {
+      dot.className = 'cc-status-dot red';
+      statusText.innerHTML = '<span style="color:#ef4444;font-weight:600">Оффлайн</span>';
+      onlineEl.textContent = '0';
+      maxEl.textContent = '—';
+    }
+  } catch(e) {
+    document.getElementById('cc-status-text').textContent = 'Недоступно';
+  }
+}
+function ccCopyIP() {
+  navigator.clipboard.writeText('mc.crystalcraft.pro');
+  var btn = document.getElementById('cc-copy-btn');
+  btn.textContent = 'скопировано!';
+  btn.classList.add('copied');
+  setTimeout(function(){ btn.textContent = 'копировать'; btn.classList.remove('copied'); }, 2000);
+}
+ccLoadStatus();
+
+var ccHistory=[],ccLoading=false,ccSuggShown=true,ccOpened=false;
+var ccMsgs=document.getElementById('cc-chat-msgs');
+var ccInp=document.getElementById('cc-inp');
+var ccSendBtn=document.getElementById('cc-send');
+function ccToggleChat(){var box=document.getElementById('cc-chat-box');ccOpened=!ccOpened;box.classList.toggle('open',ccOpened);if(ccOpened&&ccMsgs.children.length===0){ccAddMsg('bot','Привет! Я <strong>CrystalAI</strong> — помощник форума CrystalCraft. 🔮<br>Спрашивай про правила, наказания или куда обратиться!');}if(ccOpened)setTimeout(function(){ccInp.focus();},200);}
+function ccFmt(t){return t.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g,'<a href="$2">$1</a>').replace(/(?<![">])(https?:\/\/\S+)/g,'<a href="$1">$1</a>').replace(/\n/g,'<br>');}
+function ccAddMsg(role,html){var row=document.createElement('div');row.className='cc-msg-row '+role;if(role==='bot'){row.innerHTML='<div class="cc-msg-av">🔮</div><div class="cc-bubble bot">'+html+'</div>';}else{row.innerHTML='<div class="cc-bubble user">'+html+'</div>';}ccMsgs.appendChild(row);ccMsgs.scrollTop=ccMsgs.scrollHeight;}
+function ccShowTyping(){var r=document.createElement('div');r.className='cc-typing';r.id='cc-typing';r.innerHTML='<div class="cc-msg-av">🔮</div><div class="cc-typing-bub"><div class="cc-td"></div><div class="cc-td"></div><div class="cc-td"></div></div>';ccMsgs.appendChild(r);ccMsgs.scrollTop=ccMsgs.scrollHeight;}
+function ccHideTyping(){var t=document.getElementById('cc-typing');if(t)t.remove();}
+var ccIsFullscreen=false;
+function ccPlaySound(){try{
+var ctx=new(window.AudioContext||window.webkitAudioContext)();
+var o=ctx.createOscillator();var g=ctx.createGain();
+o.connect(g);g.connect(ctx.destination);
+o.type='sine';
+o.frequency.setValueAtTime(830,ctx.currentTime);
+o.frequency.setValueAtTime(1050,ctx.currentTime+0.07);
+g.gain.setValueAtTime(0,ctx.currentTime);
+g.gain.linearRampToValueAtTime(0.18,ctx.currentTime+0.02);
+g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.28);
+o.start(ctx.currentTime);o.stop(ctx.currentTime+0.28);
+}catch(e){}}
+function ccPlaySendSound(){try{
+var ctx=new(window.AudioContext||window.webkitAudioContext)();
+var o=ctx.createOscillator();var g=ctx.createGain();
+o.connect(g);g.connect(ctx.destination);
+o.type='sine';
+o.frequency.setValueAtTime(500,ctx.currentTime);
+o.frequency.exponentialRampToValueAtTime(700,ctx.currentTime+0.08);
+g.gain.setValueAtTime(0,ctx.currentTime);
+g.gain.linearRampToValueAtTime(0.1,ctx.currentTime+0.01);
+g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.15);
+o.start(ctx.currentTime);o.stop(ctx.currentTime+0.15);
+}catch(e){}}
+function ccToggleFullscreen(){ccIsFullscreen=!ccIsFullscreen;var box=document.getElementById('cc-chat-box');var icon=document.getElementById('cc-fs-icon');box.classList.toggle('fullscreen',ccIsFullscreen);icon.className=ccIsFullscreen?'fas fa-compress':'fas fa-expand';}
+async function ccSend(preset){var text=preset||ccInp.value.trim();if(!text||ccLoading)return;ccLoading=true;ccSendBtn.disabled=true;ccInp.value='';ccInp.style.height='auto';if(ccSuggShown){document.getElementById('cc-chat-sugg').style.display='none';ccSuggShown=false;}
+ccPlaySendSound();ccAddMsg('user',text.replace(/\n/g,'<br>'));
+ccHistory.push({role:'user',content:text});ccShowTyping();
+try{
+var h=ccHistory.slice(0,-1).slice(-6);
+var res=await fetch(CC_PROXY+'?msg='+encodeURIComponent(text)+'&history='+encodeURIComponent(JSON.stringify(h)),{method:'GET'});
+var data=await res.json();
+var reply=data.reply||'Не удалось получить ответ.';
+ccHistory.push({role:'assistant',content:reply});
+if(ccHistory.length>20)ccHistory=ccHistory.slice(-18);
+ccHideTyping();ccAddMsg('bot',ccFmt(reply));ccPlaySound();
+}catch(err){ccHideTyping();ccAddMsg('bot','⚠️ Ошибка подключения. Попробуй ещё раз.');ccHistory.pop();}
+ccLoading=false;ccSendBtn.disabled=false;ccInp.focus();}
+ccInp.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();ccSend();}});
+ccInp.addEventListener('input',function(){ccInp.style.height='auto';ccInp.style.height=Math.min(ccInp.scrollHeight,80)+'px';});
+</script>
+</body>
+</html>
