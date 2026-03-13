@@ -9,12 +9,20 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --bg: #0d0d0d; --surface: #111; --surface2: #151515;
-  --border: rgba(130,80,255,0.12); --border2: rgba(130,80,255,0.2);
-  --accent: #a855f7; --accent2: #7c3aed;
-  --text: #f0e8ff; --text-muted: #7a7898; --text-dim: #3d3c55;
+:root{
+  --bg:#0d0d0d;--surface:#111;--surface2:#161616;
+  --border:rgba(130,80,255,0.12);--border2:rgba(130,80,255,0.25);
+  --accent:#a855f7;--accent2:#7c3aed;
+  --text:#f0e8ff;--text-muted:#7a7898;--text-dim:#3d3c55;
+  --red:#ef4444;--yellow:#f59e0b;--green:#22c55e;
 }
+html,body{margin:0;padding:0;overflow-x:hidden;width:100%;background:var(--bg)}
+html{scroll-behavior:smooth}
+*::-webkit-scrollbar{width:6px;height:6px}
+*::-webkit-scrollbar-track{background:rgba(0,0,0,0.2)}
+*::-webkit-scrollbar-thumb{background:rgba(168,85,247,0.4);border-radius:10px}
+*::-webkit-scrollbar-thumb:hover{background:rgba(168,85,247,0.7)}
+html{scrollbar-width:thin;scrollbar-color:rgba(168,85,247,0.4) rgba(0,0,0,0.2)}
 html { scroll-behavior: smooth; }
 body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
 
