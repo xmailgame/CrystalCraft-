@@ -247,7 +247,7 @@ html { scrollbar-width: thin; scrollbar-color: rgba(168,85,247,0.4) rgba(0,0,0,0
 
 .v-status-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px }
 .v-status-item { background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:16px 12px;text-align:center }
-.v-status-dot { width:28px;height:28px;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:16px }
+.v-status-dot { width:36px;height:36px;border-radius:10px;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:16px }
 .v-status-dot.red { background:rgba(239,68,68,0.15) }
 .v-status-dot.green { background:rgba(34,197,94,0.15) }
 .v-status-dot.blue { background:rgba(59,130,246,0.15) }
@@ -288,7 +288,7 @@ html { scrollbar-width: thin; scrollbar-color: rgba(168,85,247,0.4) rgba(0,0,0,0
       Голосовой <span style="color:var(--accent)">чат</span>
     </h1>
     <p style="font-size:14px;color:var(--text-muted);line-height:1.7">
-      Для сервера используется мод <b style="color:#e8e0ff">SimpleVoiceChat</b> <span class="version-tag">2.6.*</span>
+      На сервере используется мод <b style="color:#e8e0ff">SimpleVoiceChat</b> <span class="version-tag">2.6.*</span>
     </p>
   </div>
 
@@ -296,9 +296,9 @@ html { scrollbar-width: thin; scrollbar-color: rgba(168,85,247,0.4) rgba(0,0,0,0
   <div class="v-card" style="animation-delay:.05s">
     <div class="v-card-head">
       <div class="v-card-icon blue"><i class="fas fa-download"></i></div>
-      <div class="v-card-title">Официальные ссылки для загрузок</div>
+      <div class="v-card-title">Официальные источники для скачивания</div>
     </div>
-    <p class="v-card-desc">Официальные ссылки либо если вы разбираетесь как устанавливать мод на Fabric/Forge:</p>
+    <p class="v-card-desc">Прямые ссылки на мод для тех, кто знает, как устанавливать моды через Fabric или Forge:</p>
     <a href="https://www.curseforge.com/minecraft/mc-mods/simple-voice-chat" target="_blank" class="v-link">
       <div class="v-link-icon"><i class="fas fa-link"></i></div>
       <span class="v-link-text">CurseForge — Simple Voice Chat</span>
@@ -309,23 +309,31 @@ html { scrollbar-width: thin; scrollbar-color: rgba(168,85,247,0.4) rgba(0,0,0,0
       <span class="v-link-text">Modrinth — Simple Voice Chat</span>
       <i class="fas fa-arrow-right" style="color:rgba(96,165,250,0.4);margin-left:auto;font-size:12px"></i>
     </a>
+    <a href="https://minecraft-inside.ru/mods/185344-simple-voice-chat.html" target="_blank" class="v-link" style="background:rgba(168,85,247,0.05);border-color:rgba(168,85,247,0.2)">
+      <div class="v-link-icon" style="background:rgba(168,85,247,0.12);color:#c084fc"><i class="fas fa-cube"></i></div>
+      <div style="flex:1">
+        <span class="v-link-text" style="color:#c084fc">Minecraft-Inside — Simple Voice Chat</span>
+        <div style="font-size:11px;color:#7a7898;margin-top:2px">Русскоязычный источник, простая установка</div>
+      </div>
+      <i class="fas fa-arrow-right" style="color:rgba(168,85,247,0.4);margin-left:auto;font-size:12px"></i>
+    </a>
   </div>
 
   <!-- Есть Fabric/Forge -->
   <div class="v-card" style="animation-delay:.08s">
     <div class="v-card-head">
       <div class="v-card-icon yellow"><i class="fas fa-sticky-note"></i></div>
-      <div class="v-card-title">Есть в лаунчере выбор Fabric/Forge либо не знаете что это</div>
+      <div class="v-card-title">Fabric / Forge уже есть в вашем лаунчере</div>
     </div>
-    <p class="v-card-desc">Для того, чтобы работал мод — нужно установить Fabric либо Forge.</p>
-    <p class="v-card-desc" style="margin-bottom:16px">Во многих лаунчерах Minecraft уже есть в списке выбора версий Fabric либо Forge. <b style="color:#fff">Выбирайте Fabric, так как он более стабилен.</b></p>
+    <p class="v-card-desc">Для работы голосового чата необходим загрузчик модов — Fabric или Forge.</p>
+    <p class="v-card-desc" style="margin-bottom:16px">Во многих современных лаунчерах Fabric и Forge уже встроены в список версий. <b style="color:#fff">Рекомендуем выбирать Fabric — он более стабилен и лёгок в настройке.</b></p>
     <div class="v-step">
       <i class="fas fa-arrow-right v-step-arrow"></i>
-      <div class="v-step-text">Далее открывайте каталог с игрой (<b>Кнопка в лаунчере</b> либо <b>Win+R → %appdata% → .minecraft → mods</b>) и перенесите мод в папку <b>mods</b></div>
+      <div class="v-step-text">Откройте папку с игрой (<b>кнопка «Открыть папку»</b> в лаунчере, либо <b>Win+R → %appdata% → .minecraft → mods</b>) и скопируйте туда файл мода</div>
     </div>
     <div class="v-step">
       <i class="fas fa-arrow-right v-step-arrow"></i>
-      <div class="v-step-text">Ссылки на мод в самом начале страницы (выбирайте любую)</div>
+      <div class="v-step-text">Ссылки для загрузки мода — в начале страницы. Выберите любой удобный источник</div>
     </div>
   </div>
 
@@ -333,16 +341,16 @@ html { scrollbar-width: thin; scrollbar-color: rgba(168,85,247,0.4) rgba(0,0,0,0
   <div class="v-card" style="animation-delay:.11s">
     <div class="v-card-head">
       <div class="v-card-icon purple"><i class="fas fa-clipboard-list"></i></div>
-      <div class="v-card-title">Нет в лаунчере выбора Fabric</div>
+      <div class="v-card-title">Fabric отсутствует в лаунчере — установка с нуля</div>
     </div>
-    <p class="v-card-desc">Рекомендуем использовать Fabric, так как он более стабилен:</p>
+    <p class="v-card-desc">Fabric — это загрузчик модов, без которого SimpleVoiceChat не запустится. Установить его несложно:</p>
     <div class="v-step">
       <i class="fas fa-arrow-right v-step-arrow"></i>
-      <div class="v-step-text">Скачайте установщик Fabric с официального сайта: <a href="https://fabricmc.net" target="_blank">fabricmc.net</a></div>
+      <div class="v-step-text">Перейдите на официальный сайт и скачайте установщик Fabric: <a href="https://fabricmc.net" target="_blank">fabricmc.net</a></div>
     </div>
     <div class="v-step">
       <i class="fas fa-arrow-right v-step-arrow"></i>
-      <div class="v-step-text">Запустите скачанный файл.</div>
+      <div class="v-step-text">Запустите скачанный установщик.</div>
     </div>
     <div class="v-step">
       <i class="fas fa-arrow-right v-step-arrow"></i>
@@ -351,106 +359,106 @@ html { scrollbar-width: thin; scrollbar-color: rgba(168,85,247,0.4) rgba(0,0,0,0
         <div class="v-step-nested">
           <div class="v-step">
             <i class="fas fa-arrow-right v-step-arrow"></i>
-            <div class="v-step-text">Выберите версию Minecraft (например, 1.21.8)</div>
+            <div class="v-step-text">Выберите нужную версию Minecraft (например, 1.21.8)</div>
           </div>
           <div class="v-step">
             <i class="fas fa-arrow-right v-step-arrow"></i>
-            <div class="v-step-text">Нажмите "Установить"</div>
+            <div class="v-step-text">Нажмите кнопку «Установить»</div>
           </div>
         </div>
       </div>
     </div>
     <div class="v-step">
       <i class="fas fa-arrow-right v-step-arrow"></i>
-      <div class="v-step-text">В Лаунчере (Официальный лаунчер) создайте новую сборку и выберите профиль <b>fabric-loader-...</b></div>
+      <div class="v-step-text">В официальном лаунчере Minecraft создайте новую установку и выберите профиль <b>fabric-loader-...</b></div>
     </div>
     <div class="v-step">
       <i class="fas fa-arrow-right v-step-arrow"></i>
-      <div class="v-step-text">Открывайте каталог с игрой (<b>Кнопка в лаунчере</b> либо <b>Win+R → %appdata% → .minecraft → mods</b>) и перенесите мод в папку <b>mods</b></div>
+      <div class="v-step-text">Откройте папку с игрой (<b>кнопка «Открыть папку»</b> в лаунчере, либо <b>Win+R → %appdata% → .minecraft → mods</b>) и скопируйте туда файл мода</div>
     </div>
     <div class="v-step">
       <i class="fas fa-arrow-right v-step-arrow"></i>
-      <div class="v-step-text">Ссылки на мод в самом начале страницы (выбирайте любую)</div>
+      <div class="v-step-text">Ссылки для загрузки мода — в начале страницы. Выберите любой удобный источник</div>
     </div>
   </div>
 
-  <!-- Настройка в игре -->
+  <!-- Настройка голосового чата в игре -->
   <div class="v-card" style="animation-delay:.14s">
     <div class="v-card-head">
       <div class="v-card-icon green"><i class="fas fa-gamepad"></i></div>
-      <div class="v-card-title">Настройка в игре</div>
+      <div class="v-card-title">Настройка голосового чата в игре</div>
     </div>
     <div class="v-step">
       <i class="fas fa-arrow-right v-step-arrow"></i>
-      <div class="v-step-text">Запусти игру через Fabric/Forge.</div>
+      <div class="v-step-text">Запустите игру с профилем Fabric или Forge.</div>
     </div>
     <div class="v-step">
       <i class="fas fa-arrow-right v-step-arrow"></i>
       <div class="v-step-text">
-        Нажми <b>V</b> → настрой:
+        Нажмите клавишу <b>V</b> в игре, чтобы открыть меню голосового чата, и настройте:
         <div class="v-step-nested">
           <div class="v-step">
             <i class="fas fa-arrow-right v-step-arrow"></i>
-            <div class="v-step-text">микрофон и наушники;</div>
+            <div class="v-step-text">устройство ввода (микрофон) и вывода (наушники / динамики);</div>
           </div>
           <div class="v-step">
             <i class="fas fa-arrow-right v-step-arrow"></i>
-            <div class="v-step-text">громкость;</div>
+            <div class="v-step-text">уровень громкости входящего и исходящего звука;</div>
           </div>
           <div class="v-step">
             <i class="fas fa-arrow-right v-step-arrow"></i>
-            <div class="v-step-text">горячие клавиши.</div>
+            <div class="v-step-text">удобные горячие клавиши для включения/отключения микрофона.</div>
           </div>
         </div>
       </div>
     </div>
 
     <div style="margin-top:16px;background:rgba(34,197,94,0.05);border:1px solid rgba(34,197,94,0.15);border-radius:12px;padding:16px 18px">
-      <p style="font-size:13px;color:#4ade80;font-weight:700;margin-bottom:12px">✅ Цвета и значки на сервере:</p>
+      <p style="font-size:13px;color:#4ade80;font-weight:700;margin-bottom:12px">✅ Значки статусов голосового чата на сервере:</p>
       <div class="v-status-grid">
         <div class="v-status-item">
-          <div class="v-status-dot red">🔴</div>
-          <div class="v-status-label">Войс чат не установлен</div>
+          <div class="v-status-dot red" style="background:rgba(239,68,68,0.1);width:36px;height:36px;border-radius:10px"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgd2lkdGg9IjI4IiBoZWlnaHQ9IjI4Ij4KICA8cGF0aCBkPSJNMTEgNUw2IDlIMnY2aDRsNSA0VjV6IiBmaWxsPSIjZWY0NDQ0IiBvcGFjaXR5PSIwLjkiLz4KICA8cGF0aCBkPSJNMTcgOWwtNiA2TTExIDlsNiA2IiBzdHJva2U9IiNlZjQ0NDQiIHN0cm9rZS13aWR0aD0iMi4yIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9zdmc+" style="width:28px;height:28px;object-fit:contain" alt="не установлен"></div>
+          <div class="v-status-label">Мод не установлен</div>
         </div>
         <div class="v-status-item">
-          <div class="v-status-dot green">🟢</div>
-          <div class="v-status-label">Войс чат установлен</div>
+          <div class="v-status-dot green" style="background:rgba(34,197,94,0.1);width:36px;height:36px;border-radius:10px"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgd2lkdGg9IjI4IiBoZWlnaHQ9IjI4Ij4KICA8cGF0aCBkPSJNMTEgNUw2IDlIMnY2aDRsNSA0VjV6IiBmaWxsPSIjMjJjNTVlIiBvcGFjaXR5PSIwLjkiLz4KICA8cGF0aCBkPSJNMTUuNSA4LjVhNSA1IDAgMCAxIDAgNyIgc3Ryb2tlPSIjMjJjNTVlIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDxwYXRoIGQ9Ik0xOCA2YTguNSA4LjUgMCAwIDEgMCAxMiIgc3Ryb2tlPSIjMjJjNTVlIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBvcGFjaXR5PSIwLjUiLz4KPC9zdmc+" style="width:28px;height:28px;object-fit:contain" alt="установлен"></div>
+          <div class="v-status-label">Мод установлен</div>
         </div>
         <div class="v-status-item">
-          <div class="v-status-dot blue"><i class="fas fa-volume-up" style="color:#60a5fa;font-size:13px"></i></div>
-          <div class="v-status-label">Говорит</div>
+          <div class="v-status-dot blue" style="background:rgba(59,130,246,0.1);width:36px;height:36px;border-radius:10px"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgd2lkdGg9IjI4IiBoZWlnaHQ9IjI4Ij4KICA8cGF0aCBkPSJNMTEgNUw2IDlIMnY2aDRsNSA0VjV6IiBmaWxsPSIjNjBhNWZhIiBvcGFjaXR5PSIwLjkiLz4KICA8cGF0aCBkPSJNMTUuNSA4LjVhNSA1IDAgMCAxIDAgNyIgc3Ryb2tlPSIjNjBhNWZhIiBzdHJva2Utd2lkdGg9IjIuMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPHBhdGggZD0iTTE4IDZhOC41IDguNSAwIDAgMSAwIDEyIiBzdHJva2U9IiM2MGE1ZmEiIHN0cm9rZS13aWR0aD0iMS44IiBzdHJva2UtbGluZWNhcD0icm91bmQiIG9wYWNpdHk9IjAuNiIvPgo8L3N2Zz4=" style="width:28px;height:28px;object-fit:contain" alt="говорит"></div>
+          <div class="v-status-label">Игрок говорит</div>
         </div>
         <div class="v-status-item">
-          <div class="v-status-dot gray"><i class="fas fa-microphone-slash" style="color:#6b6888;font-size:13px"></i></div>
-          <div class="v-status-label">Микрофон/звук выключен</div>
+          <div class="v-status-dot gray" style="background:rgba(107,114,128,0.1);width:36px;height:36px;border-radius:10px"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgd2lkdGg9IjI4IiBoZWlnaHQ9IjI4Ij4KICA8cGF0aCBkPSJNMTIgMmEzIDMgMCAwIDEgMyAzdjVhMyAzIDAgMCAxLTMgMyAzIDMgMCAwIDEtMy0zVjVhMyAzIDAgMCAxIDMtM3oiIGZpbGw9IiM2YjcyODAiIG9wYWNpdHk9IjAuNiIvPgogIDxwYXRoIGQ9Ik0xOSAxMHYyYTcgNyAwIDAgMS0xNCAwdi0yIiBzdHJva2U9IiM2YjcyODAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPGxpbmUgeDE9IjEyIiB5MT0iMTkiIHgyPSIxMiIgeTI9IjIyIiBzdHJva2U9IiM2YjcyODAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPGxpbmUgeDE9IjMiIHkxPSIzIiB4Mj0iMjEiIHkyPSIyMSIgc3Ryb2tlPSIjOWNhM2FmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4=" style="width:28px;height:28px;object-fit:contain" alt="выключен"></div>
+          <div class="v-status-label">Микрофон выключен</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Если не работает -->
+  <!-- Что делать, если голосовой чат не работает -->
   <div class="v-card" style="animation-delay:.17s">
     <div class="v-card-head">
       <div class="v-card-icon red"><i class="fas fa-wrench"></i></div>
-      <div class="v-card-title">Если не работает</div>
+      <div class="v-card-title">Что делать, если голосовой чат не работает</div>
     </div>
     <div class="v-step">
       <i class="fas fa-arrow-right v-step-arrow"></i>
-      <div class="v-step-text">Проверь, совпадают ли версии Minecraft, Fabric/Forge и мода.</div>
+      <div class="v-step-text">Убедитесь, что версии Minecraft, Fabric/Forge и мода <b>SimpleVoiceChat</b> совпадают между собой.</div>
     </div>
     <div class="v-step">
       <i class="fas fa-arrow-right v-step-arrow"></i>
-      <div class="v-step-text">Перезапусти игру или сервер.</div>
+      <div class="v-step-text">Полностью перезапустите игру или сервер и попробуйте снова.</div>
     </div>
     <div class="v-step">
       <i class="fas fa-arrow-right v-step-arrow"></i>
-      <div class="v-step-text">Проверь правильные ли выбраны микрофон и динамик в меню настроек мода.</div>
+      <div class="v-step-text">Зайдите в настройки мода (клавиша <b>V</b>) и убедитесь, что выбраны правильные микрофон и динамик.</div>
     </div>
   </div>
 
   <div class="v-alert">
     <i class="fas fa-exclamation-triangle v-alert-icon"></i>
-    <div class="v-alert-text"><b>Важно:</b> Убедитесь, что версии мода, Fabric/Forge и Minecraft совпадают. Несовместимость версий может привести к проблемам с работой голосового чата.</div>
+    <div class="v-alert-text"><b>Важно:</b> Версии мода, Fabric/Forge и Minecraft должны строго совпадать. Несоответствие версий — самая частая причина неработающего голосового чата.</div>
   </div>
 
 </div>
