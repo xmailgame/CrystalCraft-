@@ -2,13 +2,17 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Официальный форум сервера CrystalCraft. Правила, заявки, новости.">
-<meta property="og:title" content="CrystalCraft — Официальный форум">
+<meta name="description" content="Подача жалоб на игроков и администрацию сервера CrystalCraft.">
+<meta name="keywords" content="жалоба CrystalCraft, пожаловаться на игрока, пожаловаться на администратора">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Жалобы — CrystalCraft">
+<meta property="og:description" content="Подайте жалобу на игрока или администрацию сервера CrystalCraft.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://f-crystalcraft.pro/">
+<meta property="og:url" content="https://f-crystalcraft.pro/complaints">
 <meta property="og:site_name" content="CrystalCraft">
-<title>CrystalCraft — Официальный форум</title>
+<link rel="canonical" href="https://f-crystalcraft.pro/complaints">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Жалобы — CrystalCraft</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -23,36 +27,16 @@ body{font-family:'Nunito',sans-serif;background:#0d0d0d;color:#f0e8ff;min-height
 *::-webkit-scrollbar-track{background:rgba(0,0,0,0.2)}
 *::-webkit-scrollbar-thumb{background:rgba(168,85,247,0.4);border-radius:10px}
 *::-webkit-scrollbar-thumb:hover{background:rgba(168,85,247,0.7)}
-
-/* PAGE */
-.cc-page{font-family:'Inter',sans-serif;background:#0d0d0d;min-height:100vh;width:100%}
-
-/* HERO */
+.cc-page{background:#0d0d0d;min-height:100vh;width:100%}
 .cc-hero{position:relative;text-align:center;padding:52px 20px 44px;overflow:hidden;border-bottom:1px solid #1a1a1a}
 .cc-hero-glow{position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:500px;height:220px;background:radial-gradient(ellipse,rgba(124,58,237,.18) 0%,transparent 70%);pointer-events:none}
 .cc-hero-badge{display:inline-block;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.25);color:#c084fc;padding:5px 14px;border-radius:20px;margin-bottom:14px}
 .cc-hero-title{font-family:'Rajdhani',sans-serif;font-size:42px;font-weight:700;color:#fff;margin:0 0 8px;letter-spacing:-.5px;text-shadow:0 0 40px rgba(168,85,247,.3)}
 .cc-hero-sub{font-size:14px;color:#555;margin:0}
-
-/* STATUS */
-.cc-status-bar{display:flex;gap:10px;padding:12px 20px;border-bottom:1px solid #1a1a1a;justify-content:center;flex-wrap:wrap}
-.cc-status-card{display:flex;align-items:center;gap:8px;background:#111;border:1px solid #1e1e1e;border-radius:10px;padding:8px 14px;font-size:12.5px;color:#666;transition:border-color .2s}
-.cc-status-card.online{border-color:rgba(34,197,94,0.25)}
-.cc-status-dot{width:7px;height:7px;border-radius:50%;background:#333;flex-shrink:0;transition:background .3s,box-shadow .3s}
-.cc-status-dot.green{background:#22c55e;box-shadow:0 0 6px #22c55e;animation:ccBlink 2s infinite}
-.cc-status-dot.red{background:#ef4444}
-.cc-status-val{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#e8e8e8;margin:0 2px}
-.cc-copy-btn{cursor:pointer;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.2);color:#a855f7;font-size:11px;padding:2px 8px;border-radius:6px;margin-left:6px;transition:background .2s;font-family:'Inter',sans-serif}
-.cc-copy-btn:hover{background:rgba(168,85,247,0.18)}
-.cc-copy-btn.copied{background:rgba(34,197,94,0.1);border-color:rgba(34,197,94,0.3);color:#22c55e}
-
-/* CONTAINER */
 .cc-container{max-width:680px;margin:0 auto;padding:36px 20px 60px}
 .cc-section-label{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#3a3a3a;margin-bottom:12px;display:flex;align-items:center;gap:10px}
 .cc-section-label::before{content:'';display:inline-block;width:18px;height:2px;background:linear-gradient(90deg,#7c3aed,transparent);border-radius:2px}
 .cc-grid{display:flex;flex-direction:column;gap:7px}
-
-/* CARDS */
 .cc-card{position:relative;display:flex;align-items:center;gap:14px;background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:14px 16px;text-decoration:none;color:inherit;overflow:hidden;transition:transform .2s,border-color .25s,background .2s;animation:ccFade .4s ease both;animation-delay:var(--delay,0s)}
 .cc-card:hover{transform:translateX(5px);border-color:var(--accent,#3da5ff);background:#151515}
 .cc-card:hover .cc-bar{opacity:1}
@@ -60,7 +44,6 @@ body{font-family:'Nunito',sans-serif;background:#0d0d0d;color:#f0e8ff;min-height
 .cc-card:hover .cc-arr{color:var(--accent,#3da5ff);transform:translateX(4px)}
 .cc-card.wip{cursor:pointer;opacity:0.75}
 .cc-card.wip:hover{opacity:1}
-.cc-card.wip .cc-arr{color:#a855f7 !important}
 .cc-bar{position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent,#3da5ff);border-radius:12px 0 0 12px;opacity:0;transition:opacity .2s}
 .cc-icon{font-size:20px;color:#383838;width:32px;text-align:center;flex-shrink:0;transition:color .2s,transform .2s}
 .cc-body{flex:1;min-width:0}
@@ -68,24 +51,14 @@ body{font-family:'Nunito',sans-serif;background:#0d0d0d;color:#f0e8ff;min-height
 .cc-desc{font-size:12.5px;color:#666;margin-bottom:1px}
 .cc-sub{font-size:11.5px;color:#444}
 .cc-arr{font-size:12px;color:#2a2a2a;flex-shrink:0;transition:color .2s,transform .2s}
-
-/* FOOTER / SOCIALS */
+.cc-notice{display:flex;align-items:flex-start;gap:12px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.18);border-radius:12px;padding:14px 16px;margin-bottom:20px;animation:ccFade .4s ease both}
+.cc-notice-icon{font-size:15px;color:#ef4444;flex-shrink:0;margin-top:1px}
+.cc-notice-text{font-size:13px;color:#f87171;line-height:1.6}
+.cc-notice-text b{color:#fca5a5;font-weight:700}
 .cc-footer{margin-top:48px;text-align:center;font-size:12px;color:#333;display:flex;align-items:center;justify-content:center;gap:8px}
 .cc-footer-dot{color:#222}
-.cc-socials{display:flex;justify-content:center;gap:10px;margin-top:20px;flex-wrap:wrap}
-.cc-soc{display:flex;align-items:center;gap:7px;padding:8px 16px;border-radius:10px;background:#111;border:1px solid #1e1e1e;text-decoration:none;font-size:12.5px;color:#666;transition:color .2s,border-color .2s,background .2s}
-.cc-soc:hover{background:#151515}
-.cc-soc.vk:hover{color:#4a76a8;border-color:rgba(74,118,168,0.35)}
-.cc-soc.yt:hover{color:#ff4444;border-color:rgba(255,68,68,0.35)}
-.cc-soc.tg:hover{color:#29a9eb;border-color:rgba(41,169,235,0.35)}
-.cc-soc.dc:hover{color:#5865f2;border-color:rgba(88,101,242,0.35)}
-.cc-soc i{font-size:15px}
-
-/* ANIMATIONS */
 @keyframes ccFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes ccBlink{0%,100%{opacity:1}50%{opacity:.3}}
-
-/* NAVIGATION */
 .cc-nav{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(10,8,18,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(168,85,247,0.13);height:56px}
 .cc-nav-inner{max-width:1100px;margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center}
 .cc-nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;margin-right:auto;font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:#fff;transition:opacity .2s}
@@ -110,8 +83,6 @@ body{font-family:'Nunito',sans-serif;background:#0d0d0d;color:#f0e8ff;min-height
   .cc-hero-title{font-size:32px}
   .cc-container{padding:24px 14px 48px}
 }
-
-/* CHAT */
 #cc-chat-wrap{position:fixed;bottom:24px;right:24px;z-index:99999;font-family:'Inter',sans-serif}
 #cc-chat-btn{display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;border-radius:50px;padding:11px 18px 11px 13px;color:white;font-size:13.5px;font-weight:600;cursor:pointer;box-shadow:0 4px 20px rgba(124,58,237,.5);transition:transform .2s,box-shadow .2s;position:relative}
 #cc-chat-btn:hover{transform:scale(1.05);box-shadow:0 6px 28px rgba(124,58,237,.7)}
@@ -155,8 +126,6 @@ body{font-family:'Nunito',sans-serif;background:#0d0d0d;color:#f0e8ff;min-height
 #cc-send{width:36px;height:36px;border-radius:10px;flex-shrink:0;background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;cursor:pointer;color:white;font-size:14px;transition:transform .15s}
 #cc-send:hover{transform:scale(1.08)}
 #cc-send:disabled{opacity:.35;cursor:not-allowed;transform:none}
-
-/* WIP */
 #cc-wip-modal{display:none;position:fixed;inset:0;z-index:99998;align-items:center;justify-content:center;padding:20px}
 #cc-wip-modal.show{display:flex}
 #cc-wip-backdrop{position:absolute;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px)}
@@ -167,7 +136,6 @@ body{font-family:'Nunito',sans-serif;background:#0d0d0d;color:#f0e8ff;min-height
 #cc-wip-box .wip-badge{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.25);color:#a855f7;padding:5px 14px;border-radius:20px;margin-bottom:20px}
 #cc-wip-box .wip-close{background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;color:#fff;font-size:14px;font-weight:700;padding:10px 28px;border-radius:10px;cursor:pointer;transition:opacity .2s}
 #cc-wip-box .wip-close:hover{opacity:.85}
-
 @keyframes ccPop{from{opacity:0;transform:scale(.92) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
 @keyframes ccMsgIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 @keyframes ccB{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-5px);opacity:1}}
@@ -191,50 +159,45 @@ body{font-family:'Nunito',sans-serif;background:#0d0d0d;color:#f0e8ff;min-height
 <div class="cc-page">
   <div class="cc-hero">
     <div class="cc-hero-glow"></div>
-    <div class="cc-hero-content">
-      <div class="cc-hero-badge">💎 Официальный форум</div>
-      <h1 class="cc-hero-title">CrystalCraft</h1>
-      <p class="cc-hero-sub">Место где решается всё</p>
-    </div>
+    <div class="cc-hero-badge"><i class="fas fa-flag"></i> Гриферское выживание</div>
+    <h1 class="cc-hero-title">Жалобы</h1>
+    <p class="cc-hero-sub">Подача жалоб на Игроков и Администрацию сервера</p>
   </div>
-  <div class="cc-status-bar">
-    <div class="cc-status-card" id="cc-s1">
-      <div class="cc-status-dot" id="cc-dot"></div>
-      <span id="cc-status-text">Загрузка...</span>
-    </div>
-    <div class="cc-status-card" id="cc-s2">
-      <i class="fas fa-users" style="font-size:12px;color:#555"></i>
-      <span class="cc-status-val" id="cc-online">—</span>
-      <span>/ </span><span id="cc-max">—</span>
-      <span style="margin-left:2px">игроков</span>
-    </div>
-    <div class="cc-status-card">
-      <i class="fas fa-server" style="font-size:12px;color:#555"></i>
-      <span style="margin:0 4px">mc.crystalcraft.pro</span>
-      <button class="cc-copy-btn" id="cc-copy-btn" onclick="ccCopyIP()">копировать</button>
-    </div>
-  </div>
+
   <div class="cc-container">
-    <div class="cc-section-label">Основной раздел</div>
+
+    <div class="cc-notice">
+      <i class="fas fa-exclamation-circle cc-notice-icon"></i>
+      <div class="cc-notice-text">
+        <b>Жалобы без доказательств не рассматриваются.</b>
+      </div>
+    </div>
+
+    <div class="cc-section-label">Подача жалобы</div>
     <div class="cc-grid">
-      <a href="#" class="cc-card wip" onclick="ccShowWip();return false;" style="--accent:#3da5ff;--delay:0s"><div class="cc-bar"></div><div class="cc-icon"><i class="fas fa-tools"></i></div><div class="cc-body"><div class="cc-title">Технический раздел проекта</div><div class="cc-desc">Баги и ошибки в работе сервера, идеи для сервера.</div><div class="cc-sub">Увидели баг или есть пожелание? Вам сюда!</div></div><div class="cc-arr"><i class="fas fa-chevron-right"></i></div></a>
-      <a href="#" class="cc-card wip" onclick="ccShowWip();return false;" style="--accent:#ff4444;--delay:0.05s"><div class="cc-bar"></div><div class="cc-icon"><i class="fab fa-youtube"></i></div><div class="cc-body"><div class="cc-title">Сотрудничество Медиа</div><div class="cc-desc">Заявки на медиа-сотрудничество, жалобы.</div><div class="cc-sub">Вся информация о медиа-сфере проекта.</div></div><div class="cc-arr"><i class="fas fa-chevron-right"></i></div></a>
-      <a href="staff-rules" class="cc-card" style="--accent:#ff9900;--delay:0.1s"><div class="cc-bar"></div><div class="cc-icon"><i class="fas fa-shield-alt"></i></div><div class="cc-body"><div class="cc-title">Правила Персонала</div><div class="cc-desc">Правила для сотрудников сервера.</div></div><div class="cc-arr"><i class="fas fa-chevron-right"></i></div></a>
-      <a href="forum-rules" class="cc-card" style="--accent:#3da5ff;--delay:0.15s"><div class="cc-bar"></div><div class="cc-icon"><i class="fas fa-scroll"></i></div><div class="cc-body"><div class="cc-title">Правила форума</div><div class="cc-desc">Правила поведения на форуме.</div></div><div class="cc-arr"><i class="fas fa-chevron-right"></i></div></a>
+      <a href="#" class="cc-card wip" onclick="ccShowWip();return false;" style="--accent:#ef4444;--delay:0.05s">
+        <div class="cc-bar"></div>
+        <div class="cc-icon"><i class="fas fa-user-slash"></i></div>
+        <div class="cc-body">
+          <div class="cc-title">Жалоба на Игрока</div>
+          <div class="cc-desc">Читы, оскорбления, реклама сторонних серверов и другое.</div>
+          <div class="cc-sub">Гриферство, нарушения чата и другое.</div>
+        </div>
+        <div class="cc-arr"><i class="fas fa-chevron-right"></i></div>
+      </a>
+      <a href="#" class="cc-card wip" onclick="ccShowWip();return false;" style="--accent:#f59e0b;--delay:0.1s">
+        <div class="cc-bar"></div>
+        <div class="cc-icon"><i class="fas fa-shield-alt"></i></div>
+        <div class="cc-body">
+          <div class="cc-title">Жалоба на Администрацию сервера</div>
+          <div class="cc-desc">Несправедливый бан, мут, превышение полномочий и другое.</div>
+          <div class="cc-sub">Рассматривается только вышестоящим составом.</div>
+        </div>
+        <div class="cc-arr"><i class="fas fa-chevron-right"></i></div>
+      </a>
+
     </div>
-    <div class="cc-section-label" style="margin-top:32px">Гриферское выживание</div>
-    <div class="cc-grid">
-      <a href="rules" class="cc-card" style="--accent:#a855f7;--delay:0.2s"><div class="cc-bar"></div><div class="cc-icon"><i class="fas fa-book-open"></i></div><div class="cc-body"><div class="cc-title">Правила режима "Гриферское выживание"</div><div class="cc-desc">Ознакомьтесь с правилами перед началом игры.</div><div class="cc-sub">Все пункты поведения и игровых ограничений.</div></div><div class="cc-arr"><i class="fas fa-chevron-right"></i></div></a>
-      <a href="helper-form" class="cc-card" style="--accent:#22c55e;--delay:0.25s"><div class="cc-bar"></div><div class="cc-icon"><i class="fas fa-user-plus"></i></div><div class="cc-body"><div class="cc-title">Набор в состав проекта</div><div class="cc-desc">Хотите стать частью команды? Подайте заявку.</div><div class="cc-sub">Подходит для активных и ответственных игроков.</div></div><div class="cc-arr"><i class="fas fa-chevron-right"></i></div></a>
-      <a href="complaints" class="cc-card" style="--accent:#f59e0b;--delay:0.3s"><div class="cc-bar"></div><div class="cc-icon"><i class="fas fa-balance-scale"></i></div><div class="cc-body"><div class="cc-title">Жалобы на Администрацию и Игроков</div><div class="cc-desc">Подайте жалобу на игрока или администрацию сервера.</div><div class="cc-sub">Жалобы без доказательств не рассматриваются.</div></div><div class="cc-arr"><i class="fas fa-chevron-right"></i></div></a>
-      <a href="#" class="cc-card wip" onclick="ccShowWip();return false;" style="--accent:#22c55e;--delay:0.35s"><div class="cc-bar"></div><div class="cc-icon"><i class="fas fa-user-shield"></i></div><div class="cc-body"><div class="cc-title">Жалобы на Администрацию ФОРУМА</div><div class="cc-desc">Жалобы на действия модераторов форума.</div><div class="cc-sub">Каждый случай рассматривается индивидуально.</div></div><div class="cc-arr"><i class="fas fa-chevron-right"></i></div></a>
-    </div>
-    <div class="cc-socials">
-      <a href="https://vk.com/crystalcraft" class="cc-soc vk" target="_blank"><i class="fab fa-vk"></i>ВКонтакте</a>
-      <a href="https://www.youtube.com/@crystalcraft_youtube" class="cc-soc yt" target="_blank"><i class="fab fa-youtube"></i>YouTube</a>
-      <a href="https://t.me/CrystalCraft_Official" class="cc-soc tg" target="_blank"><i class="fab fa-telegram"></i>Telegram</a>
-      <a href="https://discord.gg/GbQ455q5Xs" class="cc-soc dc" target="_blank"><i class="fab fa-discord"></i>Discord</a>
-    </div>
+
     <div class="cc-footer"><span>© CrystalCraft</span><span class="cc-footer-dot">·</span><span>mc.crystalcraft.pro</span><span class="cc-footer-dot">·</span><span>Официальный форум</span></div>
   </div>
 </div>
@@ -289,8 +252,6 @@ function ccPlaySound(){try{var ctx=new(window.AudioContext||window.webkitAudioCo
 function ccPlaySendSound(){try{var ctx=new(window.AudioContext||window.webkitAudioContext)(),o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.setValueAtTime(500,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(700,ctx.currentTime+0.08);g.gain.setValueAtTime(0,ctx.currentTime);g.gain.linearRampToValueAtTime(0.1,ctx.currentTime+0.01);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.15);o.start(ctx.currentTime);o.stop(ctx.currentTime+0.15);}catch(e){}}
 function ccToggleFullscreen(){ccIsFullscreen=!ccIsFullscreen;var box=document.getElementById('cc-chat-box'),icon=document.getElementById('cc-fs-icon');box.classList.toggle('fullscreen',ccIsFullscreen);icon.className=ccIsFullscreen?'fas fa-compress':'fas fa-expand';}
 async function ccSend(preset){var inp=document.getElementById('cc-inp'),btn=document.getElementById('cc-send'),text=preset||inp.value.trim();if(!text||ccLoading)return;ccLoading=true;btn.disabled=true;inp.value='';inp.style.height='auto';if(ccSuggShown){document.getElementById('cc-chat-sugg').style.display='none';ccSuggShown=false;}ccPlaySendSound();ccAddMsg('user',text.replace(/\n/g,'<br>'));ccHistory.push({role:'user',content:text});ccShowTyping();try{var h=ccHistory.slice(0,-1).slice(-6),res=await fetch(CC_PROXY+'?msg='+encodeURIComponent(text)+'&history='+encodeURIComponent(JSON.stringify(h)),{method:'GET'}),data=await res.json(),reply=data.reply||'Не удалось получить ответ.';ccHistory.push({role:'assistant',content:reply});if(ccHistory.length>20)ccHistory=ccHistory.slice(-18);ccHideTyping();ccAddMsg('bot',ccFmt(reply));ccPlaySound();}catch(err){ccHideTyping();ccAddMsg('bot','⚠️ Ошибка подключения. Попробуй ещё раз.');ccHistory.pop();}ccLoading=false;btn.disabled=false;document.getElementById('cc-inp').focus();}
-function ccCopyIP(){navigator.clipboard.writeText('mc.crystalcraft.pro');var btn=document.getElementById('cc-copy-btn');if(!btn)return;btn.textContent='скопировано!';btn.classList.add('copied');setTimeout(function(){btn.textContent='копировать';btn.classList.remove('copied');},2000);}
-if(document.getElementById('cc-dot')){(async function(){try{var res=await fetch('https://api.mcsrvstat.us/3/mc.crystalcraft.pro'),data=await res.json(),dot=document.getElementById('cc-dot'),st=document.getElementById('cc-status-text'),s1=document.getElementById('cc-s1'),s2=document.getElementById('cc-s2'),on=document.getElementById('cc-online'),mx=document.getElementById('cc-max');if(data.online){dot.className='cc-status-dot green';st.innerHTML='<span style="color:#22c55e;font-weight:600">Онлайн</span>';if(s1)s1.classList.add('online');if(s2)s2.classList.add('online');if(on)on.textContent=data.players?data.players.online:'0';if(mx)mx.textContent=data.players?data.players.max:'0';}else{dot.className='cc-status-dot red';st.innerHTML='<span style="color:#ef4444;font-weight:600">Оффлайн</span>';if(on)on.textContent='0';if(mx)mx.textContent='—';}}catch(e){var s=document.getElementById('cc-status-text');if(s)s.textContent='Недоступно';}})();}
 document.addEventListener('DOMContentLoaded',function(){var inp=document.getElementById('cc-inp');if(!inp)return;inp.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();ccSend();}});inp.addEventListener('input',function(){inp.style.height='auto';inp.style.height=Math.min(inp.scrollHeight,80)+'px';});});
 </script>
 </body>
