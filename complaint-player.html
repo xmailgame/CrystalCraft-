@@ -181,11 +181,10 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
   method="POST" target="hidden_iframe" style="display:none">
   <input type="text" name="entry.1396567793" id="g_reporter">
   <input type="text" name="entry.595842129"  id="g_accused">
-  <input type="text" name="entry.849034136"  id="g_server">
-  <input type="text" name="entry.770876665"  id="g_type">
-  <input type="text" name="entry.1742086256" id="g_desc">
-  <input type="text" name="entry.1877727419" id="g_proof">
   <input type="text" name="entry.2032459991" id="g_date">
+  <input type="text" name="entry.849034136"  id="g_essence">
+  <input type="text" name="entry.1742086256" id="g_proof">
+  <input type="text" name="entry.1877727419" id="g_comment">
 </form>
 
 <div class="wrapper">
@@ -199,10 +198,13 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
   <div class="req-card">
     <div class="req-title">Важно перед подачей</div>
     <ul class="req-list">
-      <li><div class="ri"><i class="fas fa-exclamation"></i></div>Жалобы без доказательств (скриншот / видео) не рассматриваются</li>
-      <li><div class="ri"><i class="fas fa-exclamation"></i></div>Доказательства должны содержать никнейм нарушителя</li>
-      <li><div class="ri"><i class="fas fa-exclamation"></i></div>Ложные жалобы могут повлечь наказание для заявителя</li>
-      <li><div class="ri"><i class="fas fa-exclamation"></i></div>Одна жалоба — одно нарушение</li>
+      <li><div class="ri"><i class="fas fa-exclamation"></i></div>Запрещено флудить жалобами — доступ к форуму будет заблокирован</li>
+      <li><div class="ri"><i class="fas fa-exclamation"></i></div>Запрещено загружать видео длительностью более 3 минут без указания тайм-кода момента нарушения</li>
+      <li><div class="ri"><i class="fas fa-exclamation"></i></div>Запрещено использовать материалы ReplayMod и подобных модов в качестве доказательств — моментальный отказ</li>
+      <li><div class="ri"><i class="fas fa-exclamation"></i></div>На видео не должны быть скрыты панели сервера (чат, меню с IP сервера)</li>
+      <li><div class="ri"><i class="fas fa-exclamation"></i></div>Администрация имеет право не говорить причину отказа</li>
+      <li><div class="ri"><i class="fas fa-exclamation"></i></div>Жалоба рассматривается от 1 часа до 3 дней</li>
+      <li><div class="ri"><i class="fas fa-exclamation"></i></div>Для подачи жалобы за правила чата необходимо наличие мода ChatTime</li>
     </ul>
   </div>
 
@@ -221,34 +223,9 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
     <div class="field-group">
       <div class="field-row">
         <div class="field">
-          <label>Никнейм нарушителя <span class="req-star">*</span></label>
+          <label>Ник нарушителя <span class="req-star">*</span></label>
           <input type="text" id="accused" placeholder="Ник игрока" maxlength="32">
           <span class="field-error" id="err-accused"><i class="fas fa-circle-exclamation"></i> Введите никнейм нарушителя</span>
-        </div>
-        <div class="field">
-          <label>Режим <span class="req-star">*</span></label>
-          <select id="server">
-            <option value="" disabled selected>Выбрать...</option>
-            <option>Гриферское выживание</option>
-            <option>Другой режим</option>
-          </select>
-          <span class="field-error" id="err-server"><i class="fas fa-circle-exclamation"></i> Выберите режим</span>
-        </div>
-      </div>
-      <div class="field-row">
-        <div class="field">
-          <label>Тип нарушения <span class="req-star">*</span></label>
-        <select id="type">
-          <option value="" disabled selected>Выбрать...</option>
-          <option>Использование читов</option>
-          <option>Гриферство</option>
-          <option>Оскорбления / мат в чате</option>
-          <option>Реклама сторонних серверов</option>
-          <option>Угрозы</option>
-          <option>Нарушение правил чата</option>
-          <option>Другое</option>
-        </select>
-        <span class="field-error" id="err-type"><i class="fas fa-circle-exclamation"></i> Выберите тип нарушения</span>
         </div>
         <div class="field">
           <label>Дата нарушения <span class="req-star">*</span></label>
@@ -262,17 +239,24 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
     <div class="field-group">
       <div class="field">
         <div class="field-meta">
-          <label>Описание ситуации <span class="req-star">*</span></label>
-          <span class="char-count" id="cc-desc">0/600</span>
+          <label>Суть нарушения <span class="req-star">*</span></label>
+          <span class="char-count" id="cc-essence">0/600</span>
         </div>
-        <textarea id="desc" placeholder="Подробно опишите что произошло, когда и при каких обстоятельствах..." maxlength="600" rows="4"></textarea>
-        <span class="field-error" id="err-desc"><i class="fas fa-circle-exclamation"></i> Напишите хотя бы 20 символов</span>
+        <textarea id="essence" placeholder="Подробно опишите что произошло, когда и при каких обстоятельствах..." maxlength="600" rows="4"></textarea>
+        <span class="field-error" id="err-essence"><i class="fas fa-circle-exclamation"></i> Напишите хотя бы 20 символов</span>
       </div>
       <div class="field">
-        <label>Ссылка на доказательства <span class="req-star">*</span></label>
-        <input type="text" id="proof" placeholder="https://imgur.com/... или https://youtu.be/...">
+        <label>Доказательства (ссылка на фото/видео) <span class="req-star">*</span></label>
+        <input type="text" id="proof" placeholder="https://drive.google.com/... или https://youtu.be/...">
         <span style="font-size:11.5px;color:var(--text-dim);margin-top:2px;display:block;line-height:1.6"><i class="fas fa-info-circle" style="color:var(--accent);font-size:10px;margin-right:4px"></i>Загрузите на <b style="color:#b0a8cc">Imgur</b> (фото), <b style="color:#b0a8cc">YouTube</b> (видео) или <b style="color:#b0a8cc">Google Drive</b> (универсально) и вставьте ссылку</span>
         <span class="field-error" id="err-proof"><i class="fas fa-circle-exclamation"></i> Прикрепите ссылку на доказательства</span>
+      </div>
+      <div class="field">
+        <div class="field-meta">
+          <label>Дополнительный комментарий</label>
+          <span class="char-count" id="cc-comment">0/400</span>
+        </div>
+        <textarea id="comment" placeholder="Любая дополнительная информация по ситуации..." maxlength="400" rows="3"></textarea>
       </div>
     </div>
 
@@ -349,10 +333,8 @@ function validate(){
   function chk(id,errId,cond){var el=document.getElementById(id),er=document.getElementById(errId);if(cond){el.classList.remove('error');er.classList.remove('show');}else{el.classList.add('error');er.classList.add('show');ok=false;}}
   chk('reporter','err-reporter',document.getElementById('reporter').value.trim().length>=2);
   chk('accused','err-accused',document.getElementById('accused').value.trim().length>=2);
-  chk('server','err-server',document.getElementById('server').value!=='');
-  chk('type','err-type',document.getElementById('type').value!=='');
   chk('date','err-date',document.getElementById('date').value!='');
-  chk('desc','err-desc',document.getElementById('desc').value.trim().length>=20);
+  chk('essence','err-essence',document.getElementById('essence').value.trim().length>=20);
   chk('proof','err-proof',document.getElementById('proof').value.trim().length>=5);
   return ok;
 }
@@ -362,11 +344,10 @@ function submitForm(){
   btn.classList.add('loading');btn.disabled=true;
   document.getElementById('g_reporter').value=document.getElementById('reporter').value;
   document.getElementById('g_accused').value=document.getElementById('accused').value;
-  document.getElementById('g_server').value=document.getElementById('server').value;
-  document.getElementById('g_type').value=document.getElementById('type').value;
-  document.getElementById('g_desc').value=document.getElementById('desc').value;
-  document.getElementById('g_proof').value=document.getElementById('proof').value;
   document.getElementById('g_date').value=document.getElementById('date').value;
+  document.getElementById('g_essence').value=document.getElementById('essence').value;
+  document.getElementById('g_proof').value=document.getElementById('proof').value;
+  document.getElementById('g_comment').value=document.getElementById('comment').value;
   document.getElementById('gform').submit();
   setTimeout(function(){
     document.getElementById('formCard').style.display='none';
@@ -377,8 +358,10 @@ function submitForm(){
 document.addEventListener('DOMContentLoaded',function(){
   var inp=document.getElementById('cc-inp');
   if(inp){inp.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();ccSend();}});inp.addEventListener('input',function(){inp.style.height='auto';inp.style.height=Math.min(inp.scrollHeight,80)+'px';});}
-  var desc=document.getElementById('desc');
-  if(desc){desc.addEventListener('input',function(){var c=document.getElementById('cc-desc');c.textContent=desc.value.length+'/600';c.classList.toggle('warn',desc.value.length>500);});}
+  var essence=document.getElementById('essence');
+  if(essence){essence.addEventListener('input',function(){var c=document.getElementById('cc-essence');c.textContent=essence.value.length+'/600';c.classList.toggle('warn',essence.value.length>500);});}
+  var comment=document.getElementById('comment');
+  if(comment){comment.addEventListener('input',function(){var c=document.getElementById('cc-comment');c.textContent=comment.value.length+'/400';c.classList.toggle('warn',comment.value.length>350);});}
 });
 </script>
 </body>
