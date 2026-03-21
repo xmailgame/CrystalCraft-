@@ -504,8 +504,7 @@ function ccCloseWip(){document.getElementById('cc-wip-modal').classList.remove('
 document.addEventListener('keydown',function(e){if(e.key==='Escape')ccCloseWip();});
 var ccHistory=[],ccLoading=false,ccSuggShown=true,ccOpened=false,ccIsFullscreen=false;
 function ccToggleChat(){var box=document.getElementById('cc-chat-box'),msgs=document.getElementById('cc-chat-msgs');ccOpened=!ccOpened;box.classList.toggle('open',ccOpened);if(ccOpened&&msgs.children.length===0){ccAddMsg('bot','Привет! Я <strong>CrystalAI</strong> — помощник форума CrystalCraft. 🔮<br>Спрашивай про правила, наказания или куда обратиться!');}if(ccOpened)setTimeout(function(){document.getElementById('cc-inp').focus();},200);}
-function ccFmt(t){return t.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g,'<a href="$2">$1</a>').replace(/(?<![">])(https?:\/\/\S+)/g,'<a href="$1">$1</a>').replace(/
-/g,'<br>');}
+function ccFmt(t){return t.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g,'<a href="$2">$1</a>').replace(/(?<![">])(https?:\/\/\S+)/g,'<a href="$1">$1</a>').replace(/\n/g,'<br>');}
 function ccAddMsg(role,html){var msgs=document.getElementById('cc-chat-msgs'),row=document.createElement('div');row.className='cc-msg-row '+role;row.innerHTML=role==='bot'?'<div class="cc-msg-av">🔮</div><div class="cc-bubble bot">'+html+'</div>':'<div class="cc-bubble user">'+html+'</div>';msgs.appendChild(row);msgs.scrollTop=msgs.scrollHeight;}
 function ccShowTyping(){var msgs=document.getElementById('cc-chat-msgs'),r=document.createElement('div');r.className='cc-typing';r.id='cc-typing';r.innerHTML='<div class="cc-msg-av">🔮</div><div class="cc-typing-bub"><div class="cc-td"></div><div class="cc-td"></div><div class="cc-td"></div></div>';msgs.appendChild(r);msgs.scrollTop=msgs.scrollHeight;}
 function ccHideTyping(){var t=document.getElementById('cc-typing');if(t)t.remove();}
