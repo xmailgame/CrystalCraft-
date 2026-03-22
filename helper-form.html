@@ -438,7 +438,48 @@ function ccToggleFullscreen(){ccIsFullscreen=!ccIsFullscreen;var box=document.ge
 async function ccSend(preset){var inp=document.getElementById('cc-inp'),btn=document.getElementById('cc-send'),text=preset||inp.value.trim();if(!text||ccLoading)return;ccLoading=true;btn.disabled=true;inp.value='';inp.style.height='auto';if(ccSuggShown){document.getElementById('cc-chat-sugg').style.display='none';ccSuggShown=false;}ccPlaySendSound();ccAddMsg('user',text.replace(/\n/g,'<br>'));ccHistory.push({role:'user',content:text});ccShowTyping();try{var h=ccHistory.slice(0,-1).slice(-6),res=await fetch(CC_PROXY+'?msg='+encodeURIComponent(text)+'&history='+encodeURIComponent(JSON.stringify(h)),{method:'GET'}),data=await res.json(),reply=data.reply||'Не удалось получить ответ.';ccHistory.push({role:'assistant',content:reply});if(ccHistory.length>20)ccHistory=ccHistory.slice(-18);ccHideTyping();ccAddMsg('bot',ccFmt(reply));ccPlaySound();}catch(err){ccHideTyping();ccAddMsg('bot','⚠️ Ошибка подключения. Попробуй ещё раз.');ccHistory.pop();}ccLoading=false;btn.disabled=false;document.getElementById('cc-inp').focus();}
 function ccCopyIP(){navigator.clipboard.writeText('mc.crystalcraft.pro');var btn=document.getElementById('cc-copy-btn');if(!btn)return;btn.textContent='скопировано!';btn.classList.add('copied');setTimeout(function(){btn.textContent='копировать';btn.classList.remove('copied');},2000);}
 if(document.getElementById('cc-dot')){(async function(){try{var res=await fetch('https://api.mcsrvstat.us/3/mc.crystalcraft.pro'),data=await res.json(),dot=document.getElementById('cc-dot'),st=document.getElementById('cc-status-text'),s1=document.getElementById('cc-s1'),s2=document.getElementById('cc-s2'),on=document.getElementById('cc-online'),mx=document.getElementById('cc-max');if(data.online){dot.className='cc-status-dot green';st.innerHTML='<span style="color:#22c55e;font-weight:600">Онлайн</span>';if(s1)s1.classList.add('online');if(s2)s2.classList.add('online');if(on)on.textContent=data.players?data.players.online:'0';if(mx)mx.textContent=data.players?data.players.max:'0';}else{dot.className='cc-status-dot red';st.innerHTML='<span style="color:#ef4444;font-weight:600">Оффлайн</span>';if(on)on.textContent='0';if(mx)mx.textContent='—';}}catch(e){var st=document.getElementById('cc-status-text');if(st)st.textContent='Недоступно';}})();}
-document.addEventListener('DOMContentLoaded',function(){var inp=document.getElementById('cc-inp');if(!inp)return;inp.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();ccSend();}});inp.addEventListener('input',function(){inp.style.height='auto';inp.style.height=Math.min(inp.scrollHeight,80)+'px';});});
+document.addEventListener('DOMContentLoaded',function(){
+  var inp=document.getElementById('cc-inp');
+  if(inp){inp.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();ccSend();}});inp.addEventListener('input',function(){inp.style.height='auto';inp.style.height=Math.min(inp.scrollHeight,80)+'px';});}
+  var counters=[['terms','cc-terms',400],['rules_text','cc-rules',200],['why','cc-why',600],['exp','cc-exp',400],['story','cc-story',600]];
+  counters.forEach(function(c){var el=document.getElementById(c[0]);if(el){el.addEventListener('input',function(){var cnt=document.getElementById(c[1]);if(cnt){cnt.textContent=el.value.length+'/'+c[2];cnt.classList.toggle('warn',el.value.length>c[2]*0.85);}});}});
+});
+function validate(){
+  var ok=true;
+  function chk(id,errId,cond){var el=document.getElementById(id),er=document.getElementById(errId);if(!el||!er)return;if(cond){el.classList.remove('error');er.classList.remove('show');}else{el.classList.add('error');er.classList.add('show');ok=false;}}
+  chk('nickname','err-nickname',document.getElementById('nickname')&&document.getElementById('nickname').value.trim().length>=2);
+  chk('age','err-age',document.getElementById('age')&&parseInt(document.getElementById('age').value)>=1&&parseInt(document.getElementById('age').value)<=99);
+  chk('vk','err-vk',document.getElementById('vk')&&document.getElementById('vk').value.trim().length>=5);
+  chk('timezone','err-timezone',document.getElementById('timezone')&&document.getElementById('timezone').value!=='');
+  chk('online','err-online',document.getElementById('online')&&document.getElementById('online').value.trim().length>=2);
+  chk('terms','err-terms',document.getElementById('terms')&&document.getElementById('terms').value.trim().length>=20);
+  chk('rules_text','err-rules',document.getElementById('rules_text')&&document.getElementById('rules_text').value.trim().length>=2);
+  chk('why','err-why',document.getElementById('why')&&document.getElementById('why').value.trim().length>=30);
+  chk('exp','err-exp',document.getElementById('exp')&&document.getElementById('exp').value.trim().length>=2);
+  chk('story','err-story',document.getElementById('story')&&document.getElementById('story').value.trim().split(/\s+/).length>=25);
+  return ok;
+}
+function submitForm(){
+  if(!validate())return;
+  var btn=document.getElementById('submitBtn');
+  btn.classList.add('loading');btn.disabled=true;
+  document.getElementById('g_nickname').value=document.getElementById('nickname').value;
+  document.getElementById('g_age').value=document.getElementById('age').value;
+  document.getElementById('g_vk').value=document.getElementById('vk').value;
+  document.getElementById('g_timezone').value=document.getElementById('timezone').value;
+  document.getElementById('g_online').value=document.getElementById('online').value;
+  document.getElementById('g_terms').value=document.getElementById('terms').value;
+  document.getElementById('g_why').value=document.getElementById('why').value;
+  document.getElementById('g_exp').value=document.getElementById('exp').value;
+  document.getElementById('g_story').value=document.getElementById('story').value;
+  document.getElementById('g_rules').value=document.getElementById('rules_text').value;
+  document.getElementById('gform').submit();
+  setTimeout(function(){
+    document.getElementById('formCard').style.display='none';
+    document.getElementById('successWrap').classList.add('show');
+    window.scrollTo({top:0,behavior:'smooth'});
+  },1200);
+}
 </script>
 </body>
 </html>
